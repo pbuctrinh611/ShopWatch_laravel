@@ -13,25 +13,30 @@ class LoginController extends Controller
     //
     public function showLoginForm()
     {
-        if (Auth::check() && Auth::user()->role->id != Role::CUSTOMER) {
-            return redirect(route('admin.index'));
-        }
-        return view('admin.login');
+       return view('admin.login');
     }
 
-    public function login(LoginRequest $request)
-    {
-        $crendentials = $request->only('email', 'password');
-        $bool = $request->has('remember') ? true : false;
-        if (Auth::attempt($crendentials, $bool)) {
-            return redirect(route('admin.index'));
+    public function login(Request $request) {
+        $request->validate(
+            [
+                'email' => 'required',
+                'password' => 'required',
+            ],
+            [
+                'email.required' => 'Vui lòng nhập email',
+                'password.required' => 'Vui lòng nhập mật khẩu',
+            ]
+        );
+        if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password])) {
+            return redirect()->route('admin.home');
         }
-        return back()->with('alert-fail', 'Đăng nhập thất bại!');
+        //Đăng nhập thất bại
+        return redirect()->route('admin.show_login');
     }
 
-    public function logout()
-    {
+    public function logout() {
         Auth::logout();
-        return redirect(route('admin.login'));
+        return redirect()->route('admin.login');
     }
-}
+
+} 
