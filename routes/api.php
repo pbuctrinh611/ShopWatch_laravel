@@ -28,7 +28,7 @@ Route::namespace('Admin')->group(function () {
         //Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
 
-        Route::group(['middleware' => ['auth:sanctum' ,'admin']], function () {
+        Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
         });
 

@@ -30,7 +30,7 @@ class LoginController extends Controller
         //Check email
         $user = User::where('email', $request->email)->first();
         //Check password
-        if(!$user || !Hash::check($request->password, $user->password)) {
+        if(!$user || !Hash::check($request->password, $user->password) || $user->id_role == 3) {
             return response([
                 'message' => 'Đăng nhập thất bại'
             ], 401);
