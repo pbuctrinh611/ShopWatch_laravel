@@ -18,9 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'tel', 'password', 'id_role', 'id_district', 'address', 'status'
     ];
 
     /**
@@ -29,8 +27,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -41,4 +38,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    protected $attributes = [
+        'id_role' => Role::CUSTOMER
+    ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role', 'id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'id_district', 'id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'id_customer', 'id');
+    }
+
+    public function hasPermission(Permission $permission)
+    {
+        return !! optional(optional($this->role)->permissions)->contains($permission);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->id == Role::ADMIN;
+    }
 }
