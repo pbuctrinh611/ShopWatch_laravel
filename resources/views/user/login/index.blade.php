@@ -5,9 +5,9 @@
 @section('content')
 <div class="login-register-area">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 mb-md--40">
-                <h2 class="heading-secondary mb--30">Đăng nhập</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 mb-md--40">
+                <h2 class="heading-secondary mb--30 text-center">Đăng nhập</h2>
                 <div class="login-reg-box p-4 bg--2">
                     <form action="{{route('user.login')}}" method="POST">
                         @csrf
@@ -26,15 +26,16 @@
                                 <span class="text text-danger">{{$errors->first('password')}}</span>
                             @endif
                         </div>
-                        <div class="form__group">
+                        <div class="form__group d-flex justify-content-between align-items-center">
                             <div class="">
                                 <input type="checkbox" name="sessionStore" id="sessionStore" class="form__checkbox">
                                 <label for="sessionStore" class="form__checkbox--label">Nhớ tài khoản</label>
                             </div>
-                            <button type="submit" class="btn btn-5 btn-style-1 color-1">Đăng nhập</button>
-
+                            <a href="" class="forgot-pass">Quên mật khẩu ?</a>
                         </div>
-                        <a href="" class="forgot-pass">Quên mật khẩu ?</a>
+                        <div class="btn-submit__login d-flex justify-content-center mt-3">
+                            <button type="submit" class="btn btn-5 btn-style-1 color-1">Đăng nhập</button>
+                        </div>
                     </form>
                 </div>
             </div>

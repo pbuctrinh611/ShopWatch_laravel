@@ -13,7 +13,10 @@ class LoginController extends Controller
     //
     public function showLoginForm()
     {
-       return view('admin.login');
+        if(Auth::check()) {
+            return redirect()->route('admin.home');
+        }
+        return view('admin.login');
     }
 
     public function login(Request $request) {

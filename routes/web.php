@@ -43,3 +43,4 @@ Route::namespace('User')->group(function() {
         Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
     });
 });
+
