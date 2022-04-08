@@ -30,7 +30,8 @@ class LoginController extends Controller
         //Check email
         $user = User::where('email', $request->email)->first();
         //Check password
-        if(!$user || !Hash::check($request->password, $user->password) || $user->id_role == 3) {
+        if(!$user || !Hash::check($request->password, $user->password) || $user->id_role == User::USER_ROLE
+        || $user->status != User::USER_STATUS) {
             return response([
                 'message' => 'Đăng nhập thất bại'
             ], 401);
@@ -43,5 +44,12 @@ class LoginController extends Controller
             ];
             return response($response, 201);
         }
+    }
+
+    public function logout(Request $request) {	
+        $request->user()->tokens()->delete();
+        return [
+            'message' => 'Đăng xuất thành công'
+        ];
     }
 }

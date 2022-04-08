@@ -29,6 +29,7 @@ Route::namespace('Admin')->group(function () {
         Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
         //Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
         Route::group(['middleware' => ['auth:sanctum']], function () {
+            Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
         });
     });
