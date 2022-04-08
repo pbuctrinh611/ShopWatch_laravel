@@ -34,3 +34,9 @@ Route::namespace('Admin')->group(function () {
     });
 });
 
+Route::namespace('User')->group(function () {
+    Route::post('/login', [UserLoginController::class, 'login'])->name('user.login');
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+    });
+});
