@@ -4,7 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Admin | Log in</title>
+ 
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -41,7 +43,7 @@
               </div>
             </div>
             @if($errors->has('email'))
-                <span class="text text-danger">{{$errors->first('email')}}</span>
+              <span class="text text-danger">{{$errors->first('email')}}</span>
             @endif
             <div class="input-group mb-2">
               <input type="password" class="form-control" placeholder="Mật khẩu" name="password">
@@ -52,7 +54,7 @@
               </div>
             </div>
             @if($errors->has('password'))
-                <span class="text text-danger">{{$errors->first('password')}}</span>
+              <span class="text text-danger">{{$errors->first('password')}}</span>
             @endif
             <div class="form-group form-check d-flex justify-content-between mt-2">
               <div>

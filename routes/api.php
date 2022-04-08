@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Admin\LoginController;
 use App\Http\Controllers\API\Admin\HomeController;
 
+use App\Http\Controllers\API\User\UserLoginController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,16 +24,13 @@ use App\Http\Controllers\API\Admin\HomeController;
 // });
 
 Route::namespace('Admin')->group(function () {
-
     Route::prefix('admin')->group(function () {
-        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.show_login');
+        //Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.show_login');
         Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
         //Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
-
-
         Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
         });
-
     });
 });
+

@@ -43,6 +43,8 @@ class User extends Authenticatable
         'id_role' => Role::CUSTOMER
     ];
 
+    const USER_STATUS = 1;
+    
     public function role()
     {
         return $this->belongsTo(Role::class, 'id_role', 'id');
@@ -67,4 +69,6 @@ class User extends Authenticatable
     {
         return $this->role->id == Role::ADMIN;
     }
+
+    
 }
