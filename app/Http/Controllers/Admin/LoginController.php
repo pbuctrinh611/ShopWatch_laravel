@@ -28,15 +28,14 @@ class LoginController extends Controller
             ]
         );
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password])) {
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.home')->with('alert-success', 'Đăng nhập thành công');
         }
         //Đăng nhập thất bại
-        return redirect()->route('admin.show_login');
+        return redirect()->back()->with('alert-fail', 'Đăng nhập thất bại');
     }
 
     public function logout() {
         Auth::logout();
         return redirect()->route('admin.login');
     }
-
 } 

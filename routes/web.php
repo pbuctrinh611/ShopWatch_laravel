@@ -29,7 +29,7 @@ Route::namespace('Admin')->group(function () {
         Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
         Route::get('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-        Route::middleware('admin')->group(function() {
+        Route::middleware('admin', 'checkStatus')->group(function() {
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
         });
     });

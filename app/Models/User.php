@@ -45,6 +45,8 @@ class User extends Authenticatable
 
     const USER_STATUS = 1;
     
+    const USER_ROLE = 5;
+    
     public function role()
     {
         return $this->belongsTo(Role::class, 'id_role', 'id');

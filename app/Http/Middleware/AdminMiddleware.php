@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AdminMiddleware
 {
@@ -18,10 +19,11 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()) {
-            if(Auth::user()->id_role == 1 || Auth::user()->id_role == 2){
+            if(Auth::user()->id_role != User::USER_ROLE){
                 return $next($request);
             }
-            return redirect()->route('admin.show_login');
+            Auth::logout();
+            return redirect()->back()->with('alert-fail', 'Bạn không có quyền truy cập');
         }
         return redirect()->route('admin.show_login');
     }
