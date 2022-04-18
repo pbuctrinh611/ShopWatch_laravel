@@ -36,6 +36,9 @@
                         <div class="btn-submit__login d-flex justify-content-center mt-3">
                             <button type="submit" class="btn btn-5 btn-style-1 color-1">Đăng nhập</button>
                         </div>
+                        <p class="text-center mt-3">Nếu bạn chưa là thành viên hãy 
+                            <a href="{{route('user.show_register')}}">Đăng ký</a>
+                        </p>
                     </form>
                 </div>
             </div>

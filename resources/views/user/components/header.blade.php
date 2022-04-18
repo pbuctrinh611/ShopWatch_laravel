@@ -64,8 +64,8 @@
                                     Tài khoản<i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="userID">
-                                    <a class="dropdown-item" href="#" id="register">Đăng ký</a>
-                                    <a class="dropdown-item" href="{{route('user.login')}}">Đăng nhập</a>
+                                    <a class="dropdown-item" href="{{route('user.show_register')}}">Đăng ký</a>
+                                    <a class="dropdown-item" href="{{route('user.show_login')}}">Đăng nhập</a>
                                 </div>
                             </div>
                             @else
@@ -116,42 +116,6 @@
             <div class="row no-gutters">
                 <div class="col-12">
                     <div class="mobile-menu"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="formModal" aria-hidden="true" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="formModalLabel">Register</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="myForm" name="myForm" class="form-horizontal" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Telephone</label>
-                            <input type="text" class="form-control" id="tel" name="tel" placeholder="Enter telephone" value="">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes
-                    </button>
-                    <input type="hidden" id="todo_id" name="todo_id" value="0">
                 </div>
             </div>
         </div>

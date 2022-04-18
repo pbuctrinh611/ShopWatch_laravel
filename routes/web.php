@@ -42,6 +42,7 @@ Route::namespace('User')->group(function() {
         Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
         Route::get('/login', [UserLoginController::class, 'loginForm'])->name('user.show_login');
         Route::post('/login', [UserLoginController::class, 'login'])->name('user.login');
+        Route::get('/register', [UserRegisterController::class, 'registerForm'])->name('user.show_register');
         Route::post('/register', [UserRegisterController::class, 'register'])->name('user.register');
         Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
     });
