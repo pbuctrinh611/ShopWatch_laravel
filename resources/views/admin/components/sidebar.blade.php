@@ -33,6 +33,16 @@
             </p>
           </a>
         </li>
+
+        {{-- User --}}
+        <li class="nav-item">
+          <a href="{{route('user.list')}}" class="nav-link" id="link-user">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Quản lý người dùng
+            </p>
+          </a>
+        </li>
         
      
         {{-- User --}}

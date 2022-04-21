@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController;
+
 
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserHomeController;
@@ -33,6 +35,13 @@ Route::namespace('Admin')->group(function () {
 
         Route::middleware('admin', 'checkStatus')->group(function() {
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
+            
+            Route::get('/fetch-user', [UserController::class, 'fetchUser'])->name('admin.fetch_user');
+            Route::prefix('user')->group(function() {
+                Route::get('/', [UserController::class, 'index'])->name('user.list');
+                Route::post('/', [UserController::class, 'store'])->name('user.store');
+                Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+            });
         });
     });
 });

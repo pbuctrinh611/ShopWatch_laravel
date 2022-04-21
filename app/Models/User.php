@@ -71,6 +71,4 @@ class User extends Authenticatable
     {
         return $this->role->id == Role::ADMIN;
     }
-
-    
 }

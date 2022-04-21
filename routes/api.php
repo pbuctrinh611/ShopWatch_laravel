@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Admin\LoginController;
 use App\Http\Controllers\API\Admin\HomeController;
 
 use App\Http\Controllers\API\User\UserLoginController;
+use App\Http\Controllers\API\User\UserRegisterController;
 
 
 /*
