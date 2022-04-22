@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
 
-    // Fetch User
+    // TODO: Fetch User
     fetchUser();
     function fetchUser() {
         $.ajax({
@@ -34,16 +34,15 @@ jQuery(document).ready(function() {
                             <td>'+item.email+'</td>\
                             <td>'+defaultStatus+'</td>\
                             <td>'+ defaultRole+'</td>\
-                            <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__user mr-2" data-backdrop="false">Edit</button>\
-                                <button value="'+item.id+'" class="btn btn-danger" id="btn-delete__user">Delete</button></td>\
+                            <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__user mr-2">Edit</button>\
+                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__user">Delete</button></td>\
                         </tr>');
                 });
             }
         });
     }
-
-     
-    // Open Create User Modal And Add User
+ 
+    // TODO: Open Create User Modal And Add User
     $(document).on("click", '#btn-create__user', function(e) {
         $("#createUserModal").modal("show");
         e.preventDefault();
@@ -53,8 +52,6 @@ jQuery(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
-           
             var data = {
                 'name': $('#name').val(),
                 'tel': $('#tel').val(),
@@ -62,9 +59,9 @@ jQuery(document).ready(function() {
                 'password': $('#password').val(),
                 'id_role': $('#id_role').val()
             };
-          
+            var url = "user/store"
             $.ajax({
-                url: $(this).attr('action'),
+                url: url,
                 method:  "POST",
                 data: data,
                 dataType: 'json',
@@ -86,8 +83,8 @@ jQuery(document).ready(function() {
         });
     });
 
-      //Open Create Modal Edit
-       $(document).on('click', '.btn-edit__user', function (e) {
+    //TODO: Open Edit User Modal
+    $(document).on('click', '.btn-edit__user', function (e) {
         e.preventDefault();
         var user_id = $(this).val();
         $('#editUserModal').modal('show');
@@ -97,19 +94,91 @@ jQuery(document).ready(function() {
             type: "GET",
             success: function (response) {
                 if(response.status == 404) {
-                    console.log('fail');
+                    console.log(response.message);
                 }else {
-                    $('#name').val(response.user_edit.name);
-                    $('#tel').val(response.user_edit.tel);
-                    $('#email').val(response.user_edit.email);        
+                    $('#editUserModal').find('#edit_user_id').val(user_id);  
+                    $('#editUserModal').find('#name').val(response.user_edit.name);
+                    $('#editUserModal').find('#tel').val(response.user_edit.tel);
+                    $('#editUserModal').find('#email').val(response.user_edit.email); 
+                    $('#editUserModal').find("#id_role").val(response.user_edit.id_role).change();
                 }
             }
         });
     });
-   
 
- 
+    //TODO: Update User
+    $(document).on('click', '#update_user', function (e) {
+        e.preventDefault();
+        var id = $('#edit_user_id').val();
+        var data = {
+            'name':  $('#editUserModal').find('#name').val(),
+            'tel':   $('#editUserModal').find('#tel').val(),
+            'email': $('#editUserModal').find('#email').val(),
+            'id_role': $('#editUserModal').find('#id_role').val(),
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var url = "user/update/";
+        $.ajax({
+            url: url + id,
+            type: "PUT",
+            data: data,
+            dataType: "json",
+            cache: false,
+            success: function (response) {
+                if (response.status == 400) {
+                    $.each(response.error, function(prefix, val) {
+                        $('span.'+prefix + '_user_edit_error').text(val[0]);
+                    });
+                } else if(response.status == 404) {
+                    console.log(response.error);
+                } else {
+                    toastr.success("Cập nhật thành công");
+                    $("#editUserModal").modal("hide");
+                    fetchUser();
+                }
+            }
+        });
+    });
 
+    //TODO: Open Delete User Modal
+    $(document).on("click", '.btn-delete__user', function(e) {
+        e.preventDefault();
+        var user_id = $(this).val();
+        $("#delete_user_id").val(user_id);
+        $("#deleteUserModal").modal('show');
+    });
+
+    //TODO: Delete User
+    $(document).on('click', '#delete_user', function(e){
+        e.preventDefault();
+        var user_id = $('#deleteUserModal').find('#delete_user_id').val();
+        console.log(user_id);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var url = "user/delete/";
+        $.ajax({
+            url : url + user_id,
+            type: "DELETE",
+            dataType: 'json',
+            success: function(response) {
+                if(response.status == 404){
+                   console.log(response.error);
+                }
+                console.log(response.message);
+                toastr.success("Xóa người dùng thành công");
+                $("#deleteUserModal").modal("hide");
+                fetchUser();
+            }
+        });
+        
+    });
 });
 
 //Edit User

@@ -36,7 +36,7 @@
 
         {{-- User --}}
         <li class="nav-item">
-          <a href="{{route('user.list')}}" class="nav-link" id="link-user">
+          <a href="{{route('admin.user.index')}}" class="nav-link" id="link-user">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Quản lý người dùng

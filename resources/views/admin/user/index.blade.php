@@ -32,6 +32,7 @@ Quản lý người dùng
                             </tbody>
                         </table>
 
+                        <!-- Open Create User Modal -->
                         <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -42,8 +43,7 @@ Quản lý người dùng
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <ul id="saveform_errorList"></ul>
-                                        <form action="{{route('user.store')}}" id="createUserForm" name="myForm" class="form-horizontal" method="POST">
+                                        <form action="#" id="createUserForm" name="myForm" class="form-horizontal" method="POST">
                                             @csrf
                                             <div class="form-group">
                                                 <label>Họ tên</label>
@@ -82,7 +82,9 @@ Quản lý người dùng
                                 </div>
                             </div>
                         </div>
-
+                        <!-- End -->
+      
+                        <!-- Open Edit User Modal -->
                         <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -93,30 +95,31 @@ Quản lý người dùng
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <ul id="saveform_errorList"></ul>
-                                        <form action="" id="editUserForm" name="myForm" class="form-horizontal" method="POST">
+                                        <form action="#" id="editUserForm" name="myForm" class="form-horizontal" method="PUT">
                                             @csrf
+                                           
+                                            <input type="hidden" id="edit_user_id_role">
                                             <input type="hidden" id="edit_user_id">
                                             <div class="form-group">
                                                 <label>Họ tên</label>
                                                 <input type="text" class="form-control" id="name" name="name" value="">
-                                               
+                                                <span class="text text-danger error-text name_user_edit_error"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label>Số điện thoại</label>
                                                 <input type="text" class="form-control" id="tel" name="tel" value="">
-                                               
+                                                <span class="text text-danger error-text tel_user_edit_error"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label>Email</label>
                                                 <input type="email" class="form-control" id="email" name="email" value="">
-                                               
+                                                <span class="text text-danger error-text email_user_edit_error"></span>
                                             </div>
                                             <div class="form-group">
                                                 <label>Chọn quyền</label>
                                                 <select id="id_role" name="id_role" class="form-control input-sm m-bot15">
-                                                    @foreach($roles as $key => $data)
-                                                        <option value="{{$data->id}}">{{$data->name}}</option>
+                                                    @foreach($roles as $key => $role)
+                                                        <option value="{{$role->id}}">{{$role->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -129,6 +132,34 @@ Quản lý người dùng
                                 </div>
                             </div>
                         </div>
+                        <!-- End-->
+
+                         <!-- Open Delete User Modal -->
+                         <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Xóa người dùng</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="#" id="deleteUserForm" name="myForm" class="form-horizontal" method="DELETE">
+                                            @csrf
+                                            <input type="hidden" id="delete_user_id">
+                                            <h5 class="text text-danger">Bạn có muốn xóa tài khoản này không?</h5>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-primary" id="delete_user" value="Xóa">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End-->
+
                     </div>
                 </div>
             </div>

@@ -12,61 +12,52 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $users = User::whereNotIn('id_role', [1])->orderBy('id', 'desc')->get();
         $roles = Role::whereNotIn('id', [1])->orderBy('id', 'asc')->get();
         return view('admin.user.index', compact('users', 'roles'));
     }
 
-    public function fetchUser() {
+    public function fetchUser()
+    {
         $users = User::whereNotIn('id_role', [1])->with('role')->orderBy('id', 'desc')->get();
         $roles = Role::whereNotIn('id', [1])->orderBy('id', 'asc')->get();
         return response()->json([
-            'users'=>$users,
-            'roles'=>$roles
+            'users' => $users,
+            'roles' => $roles
         ]);
-
     }
 
-    public function edit($id) {
-        $user_edit = User::where('id', $id)->with('role')->first();      
-        if($user_edit) {
+    public function store(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'     =>  'required',
+                'tel'      =>  'required|regex:/(0)[0-9]{9}/|max:10|unique:users,tel',
+                'email'    =>  'required|email|unique:users,email',
+                'password' =>  'required|min:8'
+            ],
+            [
+                'name.required'     =>  'Họ tên là bắt buộc',
+                'tel.required'      =>  'Số điện thoại là bắt buộc',
+                'tel.regex'         =>  'Số điện thoại sai định dạng',
+                'tel.max'           =>  'Số điện thoại phải từ :max ký tự',
+                'tel.unique'        =>  'Số điện thoại này đã tồn tại',
+                'email.required'    =>  'Email là bắt buộc',
+                'email.email'       =>  'Email nhập chưa đúng định dạng',
+                'email.unique'      =>  'Email này đã tồn tại',
+                'password.required' =>  'Mật khẩu là bắt buộc',
+                'password.min'      =>  'Mật khẩu phải từ :min ký tự'
+            ]
+        );
+        if ($validator->fails()) {
             return response()->json([
-                'status' => 200,
-                'user_edit'   => $user_edit,
+                'status' => 400,
+                'error' => $validator->errors()->toArray()
             ]);
-        }else {
-            return response()->json([
-                'status' => 404,
-                'message'   => 'User Not Found',
-            ]);
-        }
-    }
-    
-    public function store(Request $request) {
-        $validator = Validator::make($request->all(), 
-        [
-            'name'     =>  'required',
-            'tel'      =>  'required|numeric',
-            'email'    =>  'required|email|unique:users,email',
-            'password' =>  'required|min:8'
-        ], 
-        [
-            'name.required'     =>  'Họ tên là bắt buộc',
-            'tel.required'      =>  'Số điện thoại là bắt buộc',
-            'tel.numeric'       =>  'Số điện thoại phải là số',
-            'email.required'    =>  'Email là bắt buộc',
-            'email.email'       =>  'Email nhập chưa đúng định dạng',
-            'email.unique'      =>  'Email này đã tồn tại',
-            'password.required' =>  'Mật khẩu là bắt buộc',
-            'password.min'      =>  'Mật khẩu phải từ :min ký tự'
-        ]);
-        if($validator->fails()) {
-            return response()->json([
-                'status' => 400, 
-                'error'=> $validator->errors()->toArray()
-            ]);
-        }else{
+        } else {
             $password = Hash::make(request('password'));
             $data = [
                 'name' => $request->name,
@@ -76,14 +67,90 @@ class UserController extends Controller
                 'id_role' => $request->id_role
             ];
             $user = User::create($data);
-            if($user) {
+            if ($user) {
                 return response()->json([
                     'status' => 200,
                     'message' => "Thêm thành công"
                 ]);
-            }     
+            }
         }
     }
 
-    
+    public function edit($id)
+    {
+        $user_edit = User::where('id', $id)->with('role')->first();
+        if ($user_edit) {
+            return response()->json([
+                'status' => 200,
+                'user_edit'   => $user_edit,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message'   => 'Không tìm thấy người dùng',
+            ]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'     =>  'required',
+                'tel'      =>  'required|regex:/(0)[0-9]{9}/|max:10',
+                'email'    =>  'required|email',
+            ],
+            [
+                'name.required'     =>  'Họ tên là bắt buộc',
+                'tel.required'      =>  'Số điện thoại là bắt buộc',
+                'tel.regex'         =>  'Số điện thoại sai định dạng',
+                'tel.max'           =>  'Số điện thoại phải từ :max ký tự',
+                'email.required'    =>  'Email là bắt buộc',
+                'email.email'       =>  'Email nhập chưa đúng định dạng',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'error' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $user = User::find($id);
+            if ($user) {
+                $user->name = $request->name;
+                $user->tel = $request->tel;
+                $user->email = $request->email;
+                $user->id_role = $request->id_role;
+                $user->update();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Cập nhật thành công.'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'error' => 'Không tìm thấy người dùng.'
+                ]);
+            }
+        }
+    }
+
+    public function destroy($id)
+    {
+        $user_delete = User::find($id);
+        if($user_delete) {
+            $user_delete->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Xóa người dùng thành công'
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'error' => 'Không tìm thấy người dùng'
+        ]);
+       
+    }
 }

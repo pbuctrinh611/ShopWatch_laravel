@@ -38,9 +38,11 @@ Route::namespace('Admin')->group(function () {
             
             Route::get('/fetch-user', [UserController::class, 'fetchUser'])->name('admin.fetch_user');
             Route::prefix('user')->group(function() {
-                Route::get('/', [UserController::class, 'index'])->name('user.list');
-                Route::post('/', [UserController::class, 'store'])->name('user.store');
-                Route::get('/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+                Route::get('/', [UserController::class, 'index'])->name('admin.user.index');
+                Route::post('/store', [UserController::class, 'store'])->name('admin.user.store');
+                Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+                Route::put('/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
+                Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
             });
         });
     });
