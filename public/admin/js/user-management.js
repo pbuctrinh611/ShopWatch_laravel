@@ -181,34 +181,58 @@ jQuery(document).ready(function() {
         
     });
 
-    //TODO: Search User By Name Or Email
-    // $(document).on('click', '#search_user', function(e) {
-    //     e.preventDefault();
-    //     var data = $('#txt_user').val();
-    //     //alert(data);
-    //     var url = 'user/search';
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-    //     $.ajax({
-    //         url: url,
-    //         method: 'POST',
-    //         data: data,
-    //         dataType: 'json',
-    //         success: function(response) {
-    //             if(response.status == 404) {
-    //                 console.log(response.error);
-    //             }else {
-    //                 console.log(response.message);
-    //                 fetchUser();
-    //             }
-    //         }
-    //     });
-    // });
+   //TODO: Search User By Name Or Email
+   $(document).on('click', '#search_user', function(e) {
+        e.preventDefault();
+        var data = $('#txt_user').val();
+        fetchUser(data);
+    });
+
+    function fetchUser(searchKey) {
+        $.ajax({
+            url : 'fetch-user',
+            data : {
+                searchKey: searchKey, 
+            },
+            type: "GET",
+            dataType: 'json',
+            success: function(response) {
+                $('tbody').html('');
+              
+                $.each(response.users, function(key, item) {
+                    var defaultStatus = "Hoạt động";
+                    if ( item.status == 0)  {
+                        defaultStatus =  'Khóa';
+                    } 
+                    var defaultRole = "";
+                    if(item.id_role == 2) {
+                        defaultRole = "Quản lý";
+                    }else if(item.id_role == 3) {
+                        defaultRole = "Nhân viên bán hàng";
+                    }else if(item.id_role == 4) {
+                        defaultRole = "Nhân viên giao hàng";
+                    }else {
+                        defaultRole = "Khách hàng";
+                    }
+
+                    $('tbody').append(
+                        '<tr id="users-list" name="users-list">\
+                            <th>'+item.id+'</th>\
+                            <td>'+item.name+'</td>\
+                            <td>'+item.tel+'</td>\
+                            <td>'+item.email+'</td>\
+                            <td>'+defaultStatus+'</td>\
+                            <td>'+ defaultRole+'</td>\
+                            <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__user mr-2">Edit</button>\
+                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__user">Delete</button></td>\
+                        </tr>');
+                });
+            }
+        });
+    }
+   
 });
 
-//Edit User
+
 
 

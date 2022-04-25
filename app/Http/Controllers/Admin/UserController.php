@@ -14,25 +14,24 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::whereNotIn('id_role', [1])->orderBy('id', 'desc')->get();
+       $roles = Role::whereNotIn('id', [1])->orderBy('id', 'asc')->get();
+       return view('admin.user.index', compact('roles'));
+    }
+
+    public function fetchUser(Request $request)
+    {
+        $users = User::whereNotIn('id_role', [1])->with('role')->orderBy('id', 'desc');
         $roles = Role::whereNotIn('id', [1])->orderBy('id', 'asc')->get();
-        $searchKey = !empty($request->txt_user) ? $request->txt_user : '';
-        //dd($searchKey);
+        $searchKey = !empty($request->searchKey) ? $request->searchKey : '';
         if(!empty($searchKey)) {
             $users->where(function ($query) use ($searchKey) {
                 $query->where('users.name', 'LIKE', '%' . $searchKey . '%');
                 $query->orWhere('users.email', 'LIKE', '%' . $searchKey . '%');
             });
         }
-        return view('admin.user.index', compact('users', 'roles', 'searchKey'));
-    }
-
-    public function fetchUser()
-    {
-        $users = User::whereNotIn('id_role', [1])->with('role')->orderBy('id', 'desc')->get();
-        $roles = Role::whereNotIn('id', [1])->orderBy('id', 'asc')->get();
+        $data = $users->get();
         return response()->json([
-            'users' => $users,
+            'users' => $data,
             'roles' => $roles
         ]);
     }
@@ -161,5 +160,4 @@ class UserController extends Controller
         ]);
     }
 
-  
 }

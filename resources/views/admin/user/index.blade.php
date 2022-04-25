@@ -14,11 +14,11 @@ Quản lý người dùng
                             <button class="btn btn-success" id="btn-create__user">Add</button>
                         </div>
                         <div class="d-flex">
-                            <form method="GET"  class="form-horizontal" id="formSearch">
+                            <form method="GET"  class="form-horizontal" id="formSearch" onsubmit="return false;">
                                 <div class="d-flex">
                                     <input type="text" id="txt_user" name="txt_user" class="txt_user form-control" 
                                     placeholder="Enter name or email..." />
-                                    <button class="btn btn-info ml-2" id="search_user" type="submit">Search</button>
+                                    <button class="btn btn-info ml-2" id="search_user" type="button">Search</button>
                                 </div>
                             </form>
                         </div>
