@@ -13,6 +13,15 @@ Quản lý người dùng
                             <span class="card-title mr-3">Danh sách</span>
                             <button class="btn btn-success" id="btn-create__user">Add</button>
                         </div>
+                        <div class="d-flex">
+                            <form method="GET"  class="form-horizontal" id="formSearch">
+                                <div class="d-flex">
+                                    <input type="text" id="txt_user" name="txt_user" class="txt_user form-control" 
+                                    placeholder="Enter name or email..." />
+                                    <button class="btn btn-info ml-2" id="search_user" type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -83,7 +92,7 @@ Quản lý người dùng
                             </div>
                         </div>
                         <!-- End -->
-      
+
                         <!-- Open Edit User Modal -->
                         <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -97,7 +106,7 @@ Quản lý người dùng
                                     <div class="modal-body">
                                         <form action="#" id="editUserForm" name="myForm" class="form-horizontal" method="PUT">
                                             @csrf
-                                           
+
                                             <input type="hidden" id="edit_user_id_role">
                                             <input type="hidden" id="edit_user_id">
                                             <div class="form-group">
@@ -119,7 +128,7 @@ Quản lý người dùng
                                                 <label>Chọn quyền</label>
                                                 <select id="id_role" name="id_role" class="form-control input-sm m-bot15">
                                                     @foreach($roles as $key => $role)
-                                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                                    <option value="{{$role->id}}">{{$role->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -134,8 +143,8 @@ Quản lý người dùng
                         </div>
                         <!-- End-->
 
-                         <!-- Open Delete User Modal -->
-                         <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <!-- Open Delete User Modal -->
+                        <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

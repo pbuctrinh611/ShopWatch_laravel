@@ -43,29 +43,7 @@
             </p>
           </a>
         </li>
-        
-     
-        {{-- User --}}
-        <li class="nav-item">
-          <a href="" class="nav-link" id="link-user">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Tài khoản người dùng
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="" class="nav-link" id="link-user">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Tài khoản người dùng
-            </p>
-          </a>
-        </li>
-       
-
-     
+ 
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

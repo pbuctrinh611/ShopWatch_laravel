@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
             }
         });
     }
- 
+
     // TODO: Open Create User Modal And Add User
     $(document).on("click", '#btn-create__user', function(e) {
         $("#createUserModal").modal("show");
@@ -92,6 +92,7 @@ jQuery(document).ready(function() {
         $.ajax({
             url: url + user_id,
             type: "GET",
+            cache: false,
             success: function (response) {
                 if(response.status == 404) {
                     console.log(response.message);
@@ -179,6 +180,33 @@ jQuery(document).ready(function() {
         });
         
     });
+
+    //TODO: Search User By Name Or Email
+    // $(document).on('click', '#search_user', function(e) {
+    //     e.preventDefault();
+    //     var data = $('#txt_user').val();
+    //     //alert(data);
+    //     var url = 'user/search';
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     $.ajax({
+    //         url: url,
+    //         method: 'POST',
+    //         data: data,
+    //         dataType: 'json',
+    //         success: function(response) {
+    //             if(response.status == 404) {
+    //                 console.log(response.error);
+    //             }else {
+    //                 console.log(response.message);
+    //                 fetchUser();
+    //             }
+    //         }
+    //     });
+    // });
 });
 
 //Edit User

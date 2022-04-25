@@ -35,7 +35,8 @@ Route::namespace('Admin')->group(function () {
 
         Route::middleware('admin', 'checkStatus')->group(function() {
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
-            
+            Route::get('/search', [UserController::class, 'searchUser'])->name('admin.user.get_search');
+           
             Route::get('/fetch-user', [UserController::class, 'fetchUser'])->name('admin.fetch_user');
             Route::prefix('user')->group(function() {
                 Route::get('/', [UserController::class, 'index'])->name('admin.user.index');
@@ -43,6 +44,7 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
                 Route::put('/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
                 Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
+                // Route::post('/search', [UserController::class, 'search'])->name('admin.user.search');
             });
         });
     });
