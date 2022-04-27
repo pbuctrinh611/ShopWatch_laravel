@@ -184,15 +184,25 @@ jQuery(document).ready(function() {
    //TODO: Search User By Name Or Email
    $(document).on('click', '#search_user', function(e) {
         e.preventDefault();
-        var data = $('#txt_user').val();
-        fetchUser(data);
+        var search_data= $('#txt_user').val();
+        var filter_role =   $("#filter_user_role").val();
+        fetchUser(search_data, filter_role);
     });
 
-    function fetchUser(searchKey) {
+    //TODO: Filter User By Role
+    $(document).on('change', '#filter_user_role', function(e) {
+        e.preventDefault();
+        var search_data= $('#txt_user').val();
+        var filter_role =   $("#filter_user_role").val();
+        fetchUser(search_data, filter_role);
+    });
+    
+    function fetchUser(searchKey, filterRole) {
         $.ajax({
             url : 'fetch-user',
             data : {
-                searchKey: searchKey, 
+                searchKey: searchKey,
+                filterRole: filterRole,
             },
             type: "GET",
             dataType: 'json',
@@ -230,7 +240,7 @@ jQuery(document).ready(function() {
             }
         });
     }
-   
+
 });
 
 

@@ -22,6 +22,7 @@ class UserController extends Controller
     {
         $users = User::whereNotIn('id_role', [1])->with('role')->orderBy('id', 'desc');
         $roles = Role::whereNotIn('id', [1])->orderBy('id', 'asc')->get();
+        //SearchKey
         $searchKey = !empty($request->searchKey) ? $request->searchKey : '';
         if(!empty($searchKey)) {
             $users->where(function ($query) use ($searchKey) {
@@ -30,9 +31,17 @@ class UserController extends Controller
             });
         }
         $data = $users->get();
+        //FilterRole
+        $filterRole = !empty($request->filterRole) ? $request->filterRole : '';
+        if(!empty($filterRole)) {
+            $users->where(function ($query) use ($filterRole) {
+                $query->where('users.id_role', $filterRole);
+            });
+        }
+        $data = $users->get();
         return response()->json([
             'users' => $data,
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 

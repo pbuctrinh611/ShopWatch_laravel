@@ -35,7 +35,6 @@ Route::namespace('Admin')->group(function () {
 
         Route::middleware('admin', 'checkStatus')->group(function() {
             Route::get('/home', [HomeController::class, 'home'])->name('admin.home');
-            Route::get('/search', [UserController::class, 'searchUser'])->name('admin.user.get_search');
            
             Route::get('/fetch-user', [UserController::class, 'fetchUser'])->name('admin.fetch_user');
             Route::prefix('user')->group(function() {
