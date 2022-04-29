@@ -50,6 +50,7 @@ Quản lý người dùng
                             <tbody id="users-list">
 
                             </tbody>
+                            <div id="pagination"></div>
                         </table>
 
                         <!-- Open Create User Modal -->

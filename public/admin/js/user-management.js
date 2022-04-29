@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
             success: function(response){
                 $('tbody').html('');
               
-                $.each(response.users, function(key, item) {
+                $.each(response.users.data, function(key, item) {
                     var defaultStatus = "Hoạt động";
                     if ( item.status == 0)  {
                         defaultStatus =  'Khóa';
@@ -38,6 +38,8 @@ jQuery(document).ready(function() {
                                 <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__user">Delete</button></td>\
                         </tr>');
                 });
+                $('#pagination').load(response.users.data);
+
             }
         });
     }

@@ -30,7 +30,7 @@ class UserController extends Controller
                 $query->orWhere('users.email', 'LIKE', '%' . $searchKey . '%');
             });
         }
-        $data = $users->get();
+        $data = $users->paginate(2);
         //FilterRole
         $filterRole = !empty($request->filterRole) ? $request->filterRole : '';
         if(!empty($filterRole)) {
@@ -38,7 +38,7 @@ class UserController extends Controller
                 $query->where('users.id_role', $filterRole);
             });
         }
-        $data = $users->get();
+        $data = $users->paginate(2);
         return response()->json([
             'users' => $data,
             'roles' => $roles,
