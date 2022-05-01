@@ -50,8 +50,8 @@ Quản lý người dùng
                             <tbody id="users-list">
 
                             </tbody>
-                            <div id="pagination"></div>
                         </table>
+                        
 
                         <!-- Open Create User Modal -->
                         <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
