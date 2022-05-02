@@ -51,7 +51,6 @@ Quản lý người dùng
 
                             </tbody>
                         </table>
-                        
 
                         <!-- Open Create User Modal -->
                         <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
@@ -180,12 +179,10 @@ Quản lý người dùng
                             </div>
                         </div>
                         <!-- End-->
-
                     </div>
                 </div>
             </div>
         </div>
-
 </section>
 
 @endsection

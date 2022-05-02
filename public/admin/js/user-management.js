@@ -53,7 +53,13 @@ jQuery(document).ready(function() {
                             <td>'+item.name+'</td>\
                             <td>'+item.tel+'</td>\
                             <td>'+item.email+'</td>\
-                            <td>'+defaultStatus+'</td>\
+                            <td class="text-center">'+
+                                (item.status == 0 ?
+                                '<button type="button" value="'+item.id+'" class="btn btn-danger btn-active__user col-md-10">Khóa</button>'
+                                :
+                                '<button type="button" value="'+item.id+'" class="btn btn-success btn-blocked__user col-md-10">Hoạt động</button>'
+                                )+
+                            '</td>\
                             <td>'+ defaultRole+'</td>\
                             <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__user mr-2">Edit</button>\
                                 <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__user">Delete</button></td>\
@@ -202,7 +208,54 @@ jQuery(document).ready(function() {
         
     });
 
- 
+    //TODO: Blocked User
+    $(document).on("click", '.btn-blocked__user', function(e) {
+        e.preventDefault();
+        var user_id = $(this).val();
+        var url = "user/blocked/";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url : url + user_id,
+            type: "PUT",
+            dataType: 'json',
+            success: function(response) {
+                if(response.status == 404){
+                   console.log(response.error);
+                }
+                toastr.success("Khóa người dùng thành công");
+                fetchUser();
+            }
+        });
+    });
+
+    //TODO: Active User
+    $(document).on('click', '.btn-active__user', function(e) {
+        e.preventDefault();
+        var user_id = $(this).val();
+        var url = "user/active/";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url : url + user_id,
+            type: "PUT",
+            dataType: 'json',
+            success: function(response) {
+                if(response.status == 404){
+                   console.log(response.error);
+                }
+                toastr.success("Kích hoạt người dùng thành công");
+                fetchUser();
+            }
+        });
+    });
+
 });
 
 
