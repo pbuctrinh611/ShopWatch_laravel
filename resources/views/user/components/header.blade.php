@@ -60,7 +60,7 @@
                         <div class="user-info header-top-nav__item d-flex align-items-center">
                             @if(!Auth::check())
                             <div class="dropdown header-top__dropdown">
-                                <a class="dropdown-toggle" id="userID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Tài khoản<i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="userID">
@@ -69,10 +69,13 @@
                                 </div>
                             </div>
                             @else
-                            <div class="dropdown header-top__dropdown"><a class="dropdown-toggle" id="userID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <i class="fa fa-angle-down"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="userID">
-                                    <a class="dropdown-item" href="">Thay đổi mật khẩu</a>
-                                    <a class="dropdown-item" href="">Cập nhật thông tin</a>
+                            <div class="dropdown header-top__dropdown">
+                                <a class="dropdown-toggle" id="member_name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::user()->name }} <i class="fa fa-angle-down"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{route('user.show_password')}}">Đổi mật khẩu</a>
+                                    <a class="dropdown-item" href="{{route('user.show_profile')}}">Cập nhật thông tin</a>
                                     <a class="dropdown-item" href="{{route('user.logout')}}">Đăng xuất</a>
                                 </div>
                             </div>

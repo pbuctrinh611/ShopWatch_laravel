@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserHomeController;
 use App\Http\Controllers\User\UserRegisterController;
+use App\Http\Controllers\User\UserMemberController;
+
 
 
 
@@ -56,6 +58,13 @@ Route::namespace('User')->group(function() {
         Route::get('/register', [UserRegisterController::class, 'registerForm'])->name('user.show_register');
         Route::post('/register', [UserRegisterController::class, 'register'])->name('user.register');
         Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+        Route::prefix('user')->group(function () {
+            Route::get('/profile', [UserMemberController::class, 'showProfile'])->name('user.show_profile');
+            Route::post('/update-profile', [UserMemberController::class, 'updateProfile'])->name('user.update_profile');
+            Route::get('/password', [UserMemberController::class, 'showPassword'])->name('user.show_password');
+            Route::post('/change-password', [UserMemberController::class, 'changePassword'])->name('user.change_password');
+        });
     });
 });
 

@@ -44,6 +44,7 @@
 <script src="{{ asset('user/js/ajax-mail.js') }}"></script><!-- Main JS -->
 <script src="{{ asset('user/js/main.js') }}"></script>
 <script src="{{ asset('user/js/user-register.js') }}"></script>
+<script src="{{ asset('user/js/user-information.js') }}"></script>
 <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
 
 
