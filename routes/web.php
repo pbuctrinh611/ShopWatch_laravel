@@ -43,6 +43,8 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
                 Route::put('/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
                 Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
+                Route::put('/blocked/{id}', [UserController::class, 'blocked'])->name('admin.user.blocked');
+                Route::put('/active/{id}', [UserController::class, 'active'])->name('admin.user.active');
             });
         });
     });

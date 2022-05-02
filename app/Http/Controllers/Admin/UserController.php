@@ -169,4 +169,38 @@ class UserController extends Controller
         ]);
     }
 
+    public function blocked($id) {
+        $user_blocked = User::find($id);
+        if($user_blocked) {
+            $user_blocked->update([
+                'status' => 0
+            ]);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Khóa người dùng thành công'
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'error' => 'Không tìm thấy người dùng'
+        ]);
+    }
+
+    public function active($id) {
+        $user_active = User::find($id);
+        if($user_active) {
+            $user_active->update([
+                'status' => 1
+            ]);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Kích hoạt người dùng thành công'
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'error' => 'Không tìm thấy người dùng'
+        ]);
+    }
+
 }
