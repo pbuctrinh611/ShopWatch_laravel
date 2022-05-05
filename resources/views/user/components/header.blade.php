@@ -97,7 +97,7 @@
                                 <a href="{{route('user.index')}}" class="mainmenu__link">Trang chủ</a>
                             </li>
                             <li class="mainmenu__item">
-                                <a href="" class="mainmenu__link">Sản phẩm</a>
+                                <a href="{{route('user.product.index')}}" class="mainmenu__link">Sản phẩm</a>
                             </li>
                             <li class="mainmenu__item">
                                 <a href="" class="mainmenu__link">Bài viết</a>

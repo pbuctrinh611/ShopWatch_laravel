@@ -10,6 +10,7 @@ use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserHomeController;
 use App\Http\Controllers\User\UserRegisterController;
 use App\Http\Controllers\User\UserMemberController;
+use App\Http\Controllers\User\UserProductController;
 
 
 
@@ -66,6 +67,11 @@ Route::namespace('User')->group(function() {
             Route::post('/update-profile', [UserMemberController::class, 'updateProfile'])->name('user.update_profile');
             Route::get('/password', [UserMemberController::class, 'showPassword'])->name('user.show_password');
             Route::post('/change-password', [UserMemberController::class, 'changePassword'])->name('user.change_password');
+        });
+
+        Route::get('fetch-product__page', [UserProductController::class, 'fetchProductPage'])->name('user.product.fetch-product__page');
+        Route::prefix('product')->group(function() {
+            Route::get('/', [UserProductController::class, 'index'])->name('user.product.index');
         });
     });
 });
