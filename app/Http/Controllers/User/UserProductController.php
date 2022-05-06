@@ -24,6 +24,12 @@ class UserProductController extends Controller
         if($is_homepage == 1) {
             $products = $products->take(4);
         }
+        $searchProduct = !empty($request->searchProduct) ? $request->searchProduct : '';
+        if(!empty($searchProduct)) {
+            $products->where(function ($query) use ($searchProduct) {
+                $query->where('product.name', 'LIKE', '%' . $searchProduct . '%');
+            });
+        }
         $data = $products->get();
         return response()->json([
             'products' => $data

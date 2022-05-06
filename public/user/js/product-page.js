@@ -4,11 +4,21 @@ jQuery(document).ready(function () {
         return n.toLocaleString('it-IT').replaceAll('.',',') + " VND";
     }
 
+    //TODO: Search Product By Name
+    $(document).on('click', '#search-product__page', function(e) {
+        e.preventDefault();
+        var search_product = $('#formProductSearch').find('#txt_product').val();
+        fetchProductPage(search_product);
+    });
+
     fetchProductPage();
-    function fetchProductPage() {
+    function fetchProductPage(searchProduct) {
         $.ajax({
             url: "fetch-product__page",
             type: "GET",
+            data: {
+                searchProduct: searchProduct
+            },
             dataType: "json",
             success: function (response) {
                 $(".shop-product-wrap").html("");
@@ -28,7 +38,7 @@ jQuery(document).ready(function () {
                     </div>\
                 </div>');
                 });
-            },
+            }
         });
     }
 });

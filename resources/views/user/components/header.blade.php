@@ -11,9 +11,9 @@
                 <div>
                     <div class="header-toolbar">
                         <div class="search-form-wrapper search-hide">
-                            <form action="" class="search-form">
-                                <input type="text" name="q" id="search" class="search-form__input" placeholder="Tên sản phẩm.." style="width: initial">
-                                <button type="submit" class="search-form__submit"><i class="icon_search"></i></button>
+                            <form action="" class="search-form" method="GET" id="formProductSearch" onsubmit="return false;">
+                                <input type="text" name="txt_product" id="txt_product" class="search-form__input" placeholder="Tên sản phẩm.." style="width: initial">
+                                <button type="button" class="search-form__submit" id="search-product__page"><i class="icon_search"></i></button>
                             </form>
                         </div>
                         <ul class="header-toolbar-icons">
