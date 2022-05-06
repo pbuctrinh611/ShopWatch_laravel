@@ -35,4 +35,39 @@ jQuery(document).ready(function () {
             },
         });
     }
+
+    //TODO: Blog HomePage
+    fetchBlogPage();
+    function fetchBlogPage(is_homepage) {
+        $.ajax({
+            url: 'fetch-blog__page',
+            type: 'GET',
+            data: { 
+                is_homepage: 1
+            }, 
+            dataType: 'json',
+            success: function(response) {
+                $('.blog-carousel').html('');
+                $.each(response.blogs, function(key, item) {
+                    $('.blog-carousel').append('<article class="blog col-md-4">\
+                    <a href="" class="blog__thumb">\
+                        <img src="" alt="Blog">\
+                    </a>\
+                    <div class="blog__content">\
+                        <div class="blog__meta">\
+                            <p class="blog__date"><a href="">'+item.created_at+'</a></p>\
+                        </div>\
+                        <h3 class="blog__title">\
+                            <a href="">'+item.title+'</a>\
+                        </h3>\
+                        <div class="blog__text">\
+                            <p class="intro">'+item.content+'</p>\
+                            <a class="read-more" href="">Đọc tiếp</a>\
+                        </div>\
+                    </div>\
+                </article>');
+                });
+            }
+        });
+    }
 });
