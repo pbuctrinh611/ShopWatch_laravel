@@ -11,6 +11,8 @@ use App\Http\Controllers\User\UserHomeController;
 use App\Http\Controllers\User\UserRegisterController;
 use App\Http\Controllers\User\UserMemberController;
 use App\Http\Controllers\User\UserProductController;
+use App\Http\Controllers\User\UserBlogController;
+
 
 
 
@@ -56,9 +58,6 @@ Route::namespace('Admin')->group(function () {
 Route::namespace('User')->group(function() {
     Route::middleware('checkStatus')->group(function() {
         Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
-        Route::get('fetch-product__homepage', [UserHomeController::class, 'fetchProductHomePage'])->name('user.product.fetch-product__homepage');
-        Route::get('fetch-blog__homepage', [UserHomeController::class, 'fetchBlogHomePage'])->name('user.product.fetch-blog__homepage');
-
         Route::get('/login', [UserLoginController::class, 'loginForm'])->name('user.show_login');
         Route::post('/login', [UserLoginController::class, 'login'])->name('user.login');
         Route::get('/register', [UserRegisterController::class, 'registerForm'])->name('user.show_register');
@@ -75,6 +74,11 @@ Route::namespace('User')->group(function() {
         Route::get('fetch-product__page', [UserProductController::class, 'fetchProductPage'])->name('user.product.fetch-product__page');
         Route::prefix('product')->group(function() {
             Route::get('/', [UserProductController::class, 'index'])->name('user.product.index');
+        });
+
+        Route::get('fetch-blog__page', [UserBlogController::class, 'fetchBlogPage'])->name('user.blog.fetch-blog__page');
+        Route::prefix('blog')->group(function () {
+            Route::get('/', [UserBlogController::class, 'index'])->name('user.blog.index');
         });
     });
 });

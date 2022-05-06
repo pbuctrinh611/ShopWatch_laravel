@@ -45,6 +45,7 @@
 <script src="{{ asset('user/js/main.js') }}"></script>
 <script src="{{ asset('user/js/home-page.js') }}"></script>
 <script src="{{ asset('user/js/product-page.js') }}"></script>
+<script src="{{ asset('user/js/blog-page.js') }}"></script>
 <script src="{{ asset('user/js/user-register.js') }}"></script>
 <script src="{{ asset('user/js/user-information.js') }}"></script>
 <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>

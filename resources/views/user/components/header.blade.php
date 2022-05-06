@@ -100,7 +100,7 @@
                                 <a href="{{route('user.product.index')}}" class="mainmenu__link">Sản phẩm</a>
                             </li>
                             <li class="mainmenu__item">
-                                <a href="" class="mainmenu__link">Bài viết</a>
+                                <a href="{{route('user.blog.index')}}" class="mainmenu__link">Bài viết</a>
                             </li>
                             <li class="mainmenu__item menu-item-has-children has-children">
                                 <a href="#" class="mainmenu__link">Trang</a>
