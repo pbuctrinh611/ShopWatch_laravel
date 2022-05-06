@@ -56,6 +56,9 @@ Route::namespace('Admin')->group(function () {
 Route::namespace('User')->group(function() {
     Route::middleware('checkStatus')->group(function() {
         Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
+        Route::get('fetch-product__homepage', [UserHomeController::class, 'fetchProductHomePage'])->name('user.product.fetch-product__homepage');
+        Route::get('fetch-blog__homepage', [UserHomeController::class, 'fetchBlogHomePage'])->name('user.product.fetch-blog__homepage');
+
         Route::get('/login', [UserLoginController::class, 'loginForm'])->name('user.show_login');
         Route::post('/login', [UserLoginController::class, 'login'])->name('user.login');
         Route::get('/register', [UserRegisterController::class, 'registerForm'])->name('user.show_register');

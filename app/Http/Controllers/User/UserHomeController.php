@@ -11,11 +11,7 @@ use Illuminate\Http\Request;
 class UserHomeController extends Controller
 {
     public function index() {
-        $product_new = Product::all();
-        $product_sale = Product::all();
-        $product_best = Product::all();
-        $brands = Brand::all();
-        $blogs = Blog::all();
-        return view('user.home.index', compact('product_new', 'product_sale', 'product_best', 'brands', 'blogs'));
+        return view('user.home.index');
     }
+
 }

@@ -84,63 +84,8 @@ Trang chủ
                 </ul>
                 <div class="tab-content product-tab__content" id="product-tabContent">
                     <div class="tab-pane fade show active" id="nav-featured" role="tabpanel">
-                        <div class="product-carousel js-product-carousel">
-                            @foreach($product_new as $key => $item)
-                            <div class="product-carousel-group">
-                                <div class="mirora-product mb-md--10">
-                                    <div class="product-img">
-                                        <img src="" alt="Product" class="primary-image" />
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <span>{{$item->brand->name}}</span>
-                                        <h4><a href="">{{$item->name}}</a></h4>
-                                        <span class="money" style="color: #a8741a; font-size: 1.8rem; font-weight: 500;">
-                                            {{ number_format($item->price) }}đ
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-new" role="tabpanel">
-                        <div class="product-carousel js-product-carousel">
-                            @foreach($product_sale as $key => $item)
-                            <div class="product-carousel-group">
-                                <div class="mirora-product mb-md--10">
-                                    <div class="product-img">
-                                        <img src="" alt="Product" class="primary-image" />
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <span>{{$item->brand->name}}</span>
-                                        <h4><a href="">{{$item->name}}</a></h4>
-                                        <span class="money" style="color: #a8741a; font-size: 1.8rem; font-weight: 500;">
-                                            {{ number_format($item->price) }}đ
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-bestseller" role="tabpanel">
-                        <div class="product-carousel js-product-carousel">
-                            @foreach($product_best as $key => $item)
-                            <div class="product-carousel-group">
-                                <div class="mirora-product mb-md--10">
-                                    <div class="product-img">
-                                        <img src="" alt="Product" class="primary-image" />
-                                    </div>
-                                    <div class="product-content text-center">
-                                        <span>{{$item->brand->name}}</span>
-                                        <h4><a href="">{{$item->name}}</a></h4>
-                                        <span class="money" style="color: #a8741a; font-size: 1.8rem; font-weight: 500;">
-                                            {{ number_format($item->price) }}đ
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+                        <div class="product-carousel js-product-carousel d-flex">
+                           
                         </div>
                     </div>
                 </div>
@@ -160,26 +105,8 @@ Trang chủ
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="blog-carousel nav-top slick-item-gutter">
-                    @foreach ($blogs as $key => $item)
-                    <article class="blog">
-                        <a href="" class="blog__thumb">
-                            <img src="" alt="Blog">
-                        </a>
-                        <div class="blog__content">
-                            <div class="blog__meta">
-                                <p class="blog__date"><a href=""></a></p>
-                            </div>
-                            <h3 class="blog__title">
-                                <a href="">{{ $item->title }}</a>
-                            </h3>
-                            <div class="blog__text">
-                                <p class="intro">{{($item->content) }}</p>
-                                <a class="read-more" href="">Đọc tiếp</a>
-                            </div>
-                        </div>
-                    </article>
-                    @endforeach
+                <div class="blog-carousel nav-top slick-item-gutter d-flex">
+                  
                 </div>
             </div>
         </div>
