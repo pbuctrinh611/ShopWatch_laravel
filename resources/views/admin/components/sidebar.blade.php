@@ -15,7 +15,7 @@
         <img src="{{ asset('admin/dist/img/avatar.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{ Auth::user()->role->name }}</a>
+        <a href="#" class="d-block"></a>
       </div>
     </div>
 
@@ -40,6 +40,42 @@
             <i class="nav-icon fas fa-users"></i>
             <p>
               Quản lý người dùng
+            </p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="{{ route('admin.brand.index') }}" class="nav-link" id="link-brand">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Thương hiệu sản phẩm
+            </p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="{{ route('admin.category.index') }}" class="nav-link" id="link-category">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Danh mục sản phẩm
+            </p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="" class="nav-link" id="link-brand">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Quản lý sản phẩm
+            </p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="{{ route('admin.blog.index') }}" class="nav-link" id="link-blog">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Quản lý Bài viết
             </p>
           </a>
         </li>
