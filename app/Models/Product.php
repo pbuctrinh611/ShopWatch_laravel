@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LoadImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, LoadImageTrait;
     
     protected $fillable = [
         'name', 'warranty', 'price', 'is_waterproof', 'glasses', 'strap', 'watch_case', 
@@ -69,5 +70,22 @@ class Product extends Model
     public function getQty($id_color)
     {
         return $this->colors()->where('id_color', $id_color)->first()->qty;
+    }
+
+    public function getImageDetailsAttribute($value)
+    {
+        if (!is_null($value)) {
+            $array = array_map(function ($item) {
+                return asset('storage/' . $item);
+            }, json_decode($value));
+        } else {
+            $array = [];
+        }
+        return $array;
+    }
+
+    public function setImageDetailsAttribute($value)
+    {
+        return $this->attributes['image_details'] = json_encode($value, JSON_UNESCAPED_UNICODE);
     }
 }

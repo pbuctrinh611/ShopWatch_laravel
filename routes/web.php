@@ -54,6 +54,31 @@ Route::namespace('Admin')->group(function () {
                 Route::put('/active/{id}', [UserController::class, 'active'])->name('admin.user.active');
             });
         });
+
+        Route::prefix('brand')->group(function () {
+            Route::get('/index', [BrandController::class, 'index'])->name('admin.brand.index');
+            Route::get('/create',[BrandController::class, 'showCreateForm'])->name('admin.brand.create');
+            Route::post('/create',[BrandController::class,'create']);
+            Route::get('/detail/{id}',[BrandController::class,'detail'])->name('admin.brand.detail');
+            Route::put('/update/{id}', [BrandController::class,'update'])->name('admin.brand.update');
+        });  
+        
+        Route::prefix('category')->group(function () {
+            Route::get('/index', [CategoryController::class, 'index'])->name('admin.category.index');
+            Route::get('/create',[CategoryController::class, 'showCreateForm'])->name('admin.category.create');
+            Route::post('/create',[CategoryController::class,'create']);
+            Route::get('/detail/{id}',[CategoryController::class,'detail'])->name('admin.category.detail');
+            Route::put('/update/{id}', [CategoryController::class,'update'])->name('admin.category.update');
+        });  
+        
+        Route::prefix('blog')->group(function () {
+            Route::get('/index', [BlogController::class, 'index'])->name('admin.blog.index');
+            Route::get('/search', [BlogController::class, 'search'])->name('admin.blog.search');
+            Route::get('/create',[BlogController::class, 'showCreateForm'])->name('admin.blog.create');
+            Route::post('/create',[BlogController::class,'create']);
+            Route::get('/detail/{id}',[BlogController::class,'detail'])->name('admin.blog.detail');
+            Route::put('/update/{id}', [BlogController::class,'update'])->name('admin.blog.update');
+        });  
     });
 });
 
@@ -82,30 +107,7 @@ Route::namespace('User')->group(function() {
         Route::prefix('blog')->group(function () {
             Route::get('/', [UserBlogController::class, 'index'])->name('user.blog.index');
 
-            Route::prefix('brand')->group(function () {
-                Route::get('/index', [BrandController::class, 'index'])->name('admin.brand.index');
-                Route::get('/create',[BrandController::class, 'showCreateForm'])->name('admin.brand.create');
-                Route::post('/create',[BrandController::class,'create']);
-                Route::get('/detail/{id}',[BrandController::class,'detail'])->name('admin.brand.detail');
-                Route::put('/update/{id}', [BrandController::class,'update'])->name('admin.brand.update');
-            });  
             
-            Route::prefix('category')->group(function () {
-                Route::get('/index', [CategoryController::class, 'index'])->name('admin.category.index');
-                Route::get('/create',[CategoryController::class, 'showCreateForm'])->name('admin.category.create');
-                Route::post('/create',[CategoryController::class,'create']);
-                Route::get('/detail/{id}',[CategoryController::class,'detail'])->name('admin.category.detail');
-                Route::put('/update/{id}', [CategoryController::class,'update'])->name('admin.category.update');
-            });  
-            
-            Route::prefix('blog')->group(function () {
-                Route::get('/index', [BlogController::class, 'index'])->name('admin.blog.index');
-                Route::get('/search', [BlogController::class, 'search'])->name('admin.blog.search');
-                Route::get('/create',[BlogController::class, 'showCreateForm'])->name('admin.blog.create');
-                Route::post('/create',[BlogController::class,'create']);
-                Route::get('/detail/{id}',[BlogController::class,'detail'])->name('admin.blog.detail');
-                Route::put('/update/{id}', [BlogController::class,'update'])->name('admin.blog.update');
-            });  
         });
     });
 });

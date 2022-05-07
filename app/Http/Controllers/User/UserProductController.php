@@ -31,6 +31,7 @@ class UserProductController extends Controller
             });
         }
         $data = $products->get();
+        // info($pdocu)
         return response()->json([
             'products' => $data
         ]);

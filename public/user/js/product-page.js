@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
                     $(".shop-product-wrap").append('<div class="col-xl-3 col-lg-4 col-md-6 col-12">\
                     <div class="mirora-product mb-md--10">\
                         <div class="product-img">\
-                            <img src="" alt="Product" class="primary-image" />\
+                            <img src="' + item.image + '" alt="Product" class="primary-image" />\
                         </div>\
                         <div class="product-content text-center">\
                             <span>'+item.brand.name+'</span>\

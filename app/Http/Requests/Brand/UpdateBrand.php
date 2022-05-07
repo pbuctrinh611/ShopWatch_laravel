@@ -13,7 +13,7 @@ class UpdateBrand extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateBrand extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:brand,name,',
+            'name' => 'required|unique:brand,name,'.$this->route('id'),
             'status' => 'required|boolean'
         ];
     }
