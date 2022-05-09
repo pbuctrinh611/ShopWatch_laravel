@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
                     $(".product-carousel").append('<div class="product-carousel-group col-md-3">\
                     <div class="mirora-product mb-md--10">\
                         <div class="product-img">\
-                            <img src="" alt="Product" class="primary-image" />\
+                            <img src="'+item.image+'" alt="Product" class="primary-image" />\
                         </div>\
                         <div class="product-content text-center">\
                         <span>'+item.brand.name+'</span>\
@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
                 $.each(response.blogs, function(key, item) {
                     $('.blog-carousel').append('<article class="blog col-md-4">\
                     <a href="" class="blog__thumb">\
-                        <img src="" alt="Blog">\
+                        <img src="'+item.image+'" alt="Blog">\
                     </a>\
                     <div class="blog__content">\
                         <div class="blog__meta">\

@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
                     <article class="post listview sticky single-post format-image">\
                         <div class="post-media">\
                             <div class="image">\
-                                <a href=""><img src="' + item.image + '" alt="blog"></a>\
+                                <a href=""><img src="'+item.image+'" alt="blog"></a>\
                             </div>\
                         </div>\
                         <div class="post-info">\
@@ -36,5 +36,4 @@ jQuery(document).ready(function() {
             }
         });
     }
-
 });
