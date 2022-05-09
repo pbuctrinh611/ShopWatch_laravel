@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use Exception;
-use App\Model\Brand;
-use App\Model\Color;
-use App\Model\Product;
-use App\Model\Category;
-use App\Model\ProductColor;
+use App\Models\Brand;
+use App\Models\Color;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
