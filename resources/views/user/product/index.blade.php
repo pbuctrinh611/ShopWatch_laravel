@@ -21,9 +21,9 @@ Sản phẩm
                             <ul class="filter-list">
                                 @foreach($categories as $key => $item)
                                 <li>
-                                    <div class="filter-input filter-checkbox">
-                                        <input type="checkbox" name="category1" id="category1">
-                                        <label for="category1">{{$item->name}}</label>
+                                    <div class="filter-input filter-checkbox filter-category">
+                                        <input type="checkbox" name="category_checkbox[]" id="category_checkbox" value="{{$item->id}}">
+                                        <label for="category_checkbox">{{$item->name}}</label>
                                     </div>
                                 </li>
                                 @endforeach 

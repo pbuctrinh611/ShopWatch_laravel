@@ -11,6 +11,19 @@ jQuery(document).ready(function () {
         fetchProductPage(search_product);
     });
 
+    //TODO: Filter Product
+    $(document).on('change', '#category_checkbox', function(e) {
+        e.preventDefault();
+        var categories = [];
+        $('#category_checkbox').each(function() {
+            console.log($(this))
+            if($(this).is(':checked')){
+                console.log($(this).val());
+            }
+        });
+       // console.log(categories);
+    });
+
     fetchProductPage();
     function fetchProductPage(searchProduct) {
         $.ajax({
