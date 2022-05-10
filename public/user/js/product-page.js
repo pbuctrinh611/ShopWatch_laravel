@@ -8,16 +8,113 @@ jQuery(document).ready(function () {
     $(document).on('click', '#search-product__page', function(e) {
         e.preventDefault();
         var search_product = $('#formProductSearch').find('#txt_product').val();
-        fetchProductPage(search_product);
+        var categories = [];
+        $('.category_checkbox').each(function() {
+            if($(this).is(':checked')){
+               categories.push($(this).val());
+            }
+        });
+        var brands = [];
+        $('.brand_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                brands.push($(this).val());
+            }
+        });
+        var colors = [];
+        $('.color_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                colors.push($(this).val());
+            }
+        });
+        fetchProductPage(search_product, categories, brands, colors);
+    });
+
+    //TODO: Filter Product By Category
+    $(document).on('change', '.category_checkbox', function(e) {
+        e.preventDefault();
+        var search_product = $('#formProductSearch').find('#txt_product').val();
+        var categories = [];
+        $('.category_checkbox').each(function() {
+            if($(this).is(':checked')){
+               categories.push($(this).val());
+            }
+        });
+        var brands = [];
+        $('.brand_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                brands.push($(this).val());
+            }
+        });
+        var colors = [];
+        $('.color_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                colors.push($(this).val());
+            }
+        });
+        fetchProductPage(search_product, categories, brands, colors);
+    });
+
+    //TODO: Filter Product By Brand
+    $(document).on('change', '.brand_checkbox', function(e) {
+        e.preventDefault();
+        var search_product = $('#formProductSearch').find('#txt_product').val();
+        var categories = [];
+        $('.category_checkbox').each(function() {
+            if($(this).is(':checked')){
+               categories.push($(this).val());
+            }
+        });
+        var brands = [];
+        $('.brand_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                brands.push($(this).val());
+            }
+        });
+        var colors = [];
+        $('.color_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                colors.push($(this).val());
+            }
+        });
+        fetchProductPage(search_product, categories, brands, colors);
+    });
+
+    //TODO: Filter Product By Color
+    $(document).on('change', '.color_checkbox', function(e) {
+        e.preventDefault();
+        var search_product = $('#formProductSearch').find('#txt_product').val();
+        var categories = [];
+        $('.category_checkbox').each(function() {
+            if($(this).is(':checked')){
+               categories.push($(this).val());
+            }
+        });
+        var brands = [];
+        $('.brand_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                brands.push($(this).val());
+            }
+        });
+        var colors = [];
+        $('.color_checkbox').each(function() {
+            if($(this).is(':checked')) {
+                colors.push($(this).val());
+            }
+            console.log(colors);
+        });
+        fetchProductPage(search_product, categories, brands, colors);
     });
 
     fetchProductPage();
-    function fetchProductPage(searchProduct) {
+    function fetchProductPage(searchProduct, filterProductByCategory, filterProductByBrand, filterProductByColor) {
         $.ajax({
             url: "fetch-product__page",
             type: "GET",
             data: {
-                searchProduct: searchProduct
+                searchProduct: searchProduct,
+                filterProductByCategory: filterProductByCategory,
+                filterProductByBrand: filterProductByBrand,
+                filterProductByColor: filterProductByColor
             },
             dataType: "json",
             success: function (response) {
