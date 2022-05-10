@@ -15,7 +15,7 @@ class ProductColor extends Model
 
     protected $primaryKey = ['id_color', 'id_product'];
 
-    protected $table = 'product_color';
+    protected $table = 'product_colors';
     
     public $incrementing = false;
 

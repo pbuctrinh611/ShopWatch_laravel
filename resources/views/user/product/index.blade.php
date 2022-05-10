@@ -22,8 +22,8 @@ Sản phẩm
                                 @foreach($categories as $key => $item)
                                 <li>
                                     <div class="filter-input filter-checkbox filter-category">
-                                        <input type="checkbox" name="category_checkbox[]" id="category_checkbox" value="{{$item->id}}">
-                                        <label for="category_checkbox">{{$item->name}}</label>
+                                        <input type="checkbox" id="category_checkbox_{{$item->id}}" class="category_checkbox" name="category_checkbox" value ="{{$item->id}}">
+                                        <label for="category_checkbox_{{$item->id}}"> {{$item->name}}</label><br>
                                     </div>
                                 </li>
                                 @endforeach 
@@ -34,9 +34,9 @@ Sản phẩm
                             <ul class="filter-list">
                                 @foreach($brands as $key => $item)
                                 <li>
-                                    <div class="filter-input filter-checkbox">
-                                        <input type="checkbox" name="ferragamo" id="ferragamo">
-                                        <label for="ferragamo">{{$item->name}}</label>
+                                    <div class="filter-input filter-checkbox filter-brand">
+                                        <input type="checkbox" id="brand_checkbox_{{$item->id}}" class="brand_checkbox" name="brand_checkbox" value ="{{$item->id}}">
+                                        <label for="brand_checkbox_{{$item->id}}">{{$item->name}}</label>
                                     </div>
                                 </li>
                                 @endforeach
@@ -47,9 +47,9 @@ Sản phẩm
                             <ul class="filter-list">
                                 @foreach($colors as $key => $item)
                                 <li>
-                                    <div class="filter-input filter-checkbox">
-                                        <input type="checkbox" name="category1" id="category1">
-                                        <label for="category1">{{$item->name}}</label>
+                                    <div class="filter-input filter-checkbox filter-color">
+                                        <input type="checkbox" id="color_checkbox_{{$item->id}}" class="color_checkbox" name="color_checkbox" value ="{{$item->id}}">
+                                        <label for="color_checkbox_{{$item->id}}">{{$item->name}}</label>
                                     </div>
                                 </li>
                                 @endforeach
