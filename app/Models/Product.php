@@ -36,6 +36,10 @@ class Product extends Model
         return $this->hasMany(ProductColor::class, 'id_product', 'id');
     }
 
+    public function color() {
+        return $this->belongsToMany(Color::class, 'product_colors', 'id_product', 'id_color');
+    }
+
     public function displayStatus()
     {
         return $this->status ? 'Hiển thị' : 'Ẩn';

@@ -100,8 +100,8 @@ jQuery(document).ready(function () {
             if($(this).is(':checked')) {
                 colors.push($(this).val());
             }
-            console.log(colors);
         });
+        console.log(colors);
         fetchProductPage(search_product, categories, brands, colors);
     });
 

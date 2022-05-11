@@ -20,7 +20,7 @@ class UserProductController extends Controller
 
     public function fetchProductPage(Request $request) {
         $is_homepage = !empty($request->is_homepage) ? $request->is_homepage : '';
-        $products = Product::with('category', 'brand', 'colors')->orderBy('id', 'desc');
+        $products = Product::with('category', 'brand', 'color')->orderBy('id', 'desc');
         if($is_homepage == 1) {
             $products = $products->take(4);
         }
@@ -44,8 +44,8 @@ class UserProductController extends Controller
         }
         $filterProductByColor = !empty($request->filterProductByColor) ? $request->filterProductByColor : '';
         if(!empty($filterProductByColor)) {
-            $products->where(function ($query) use ($filterProductByColor) {
-                $query->where('product.', $filterProductByColor);
+            $products->whereHas('color', function ($query) use ($filterProductByColor) {
+                $query->where('product_colors.id_color', $filterProductByColor);
             });
         }
         $data = $products->get();
