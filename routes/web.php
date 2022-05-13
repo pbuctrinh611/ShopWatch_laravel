@@ -99,15 +99,15 @@ Route::namespace('User')->group(function() {
         });
 
         Route::get('fetch-product__page', [UserProductController::class, 'fetchProductPage'])->name('user.product.fetch-product__page');
+        Route::get('fetch-product-detail__page', [UserProductController::class, 'fetchProductDetailPage'])->name('user.product.fetch-product-detail__page');
         Route::prefix('product')->group(function() {
             Route::get('/', [UserProductController::class, 'index'])->name('user.product.index');
+            Route::get('/detail/{id}', [UserProductController::class, 'detail'])->name('user.product.detail');
         });
 
         Route::get('fetch-blog__page', [UserBlogController::class, 'fetchBlogPage'])->name('user.blog.fetch-blog__page');
         Route::prefix('blog')->group(function () {
             Route::get('/', [UserBlogController::class, 'index'])->name('user.blog.index');
-
-            
         });
     });
 });

@@ -54,4 +54,28 @@ class UserProductController extends Controller
             'products' => $data
         ]);
     }
+
+    public function detail(Request $request, $id) {
+        $categories = Category::where('status', 1)->get();
+        $brands = Brand::where('status', 1)->get();
+        $colors = Color::all();
+        $product = Product::with('category', 'brand', 'color')->where('product.id', $id)->first();
+        if($request->ajax()) {
+            return response()->json([
+
+            ]);
+        }
+        return view('user.product.detail', compact('product', 'categories', 'brands', 'colors'));
+    }
+
+    // public function fetchProductDetailPage(Request $request) {
+    //     $product = Product::with('category', 'brand', 'color')->orderBy('id', 'desc');
+    //     $productID = $request->productID;
+    //     dd($productID);
+    //     $data = $product::where('product.id', $productID)->first();
+    //     return response()->json([
+    //         'product' => $data
+    //     ]);
+    // }
+
 }

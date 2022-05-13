@@ -127,7 +127,7 @@ jQuery(document).ready(function () {
                         </div>\
                         <div class="product-content text-center">\
                             <span>'+item.brand.name+'</span>\
-                            <h4><a href="">'+item.name+'</a></h4>\
+                            <h4><a href="/product/detail/'+item.id+'"  data-id="'+item.id+'" class="detail-link">'+item.name+'</a></h4>\
                             <span class="money" style="color: #a8741a; font-size: 1.8rem; font-weight: 500;">\
                                 '+(formatCurrency(item.price))+'\
                             </span>\
@@ -138,4 +138,5 @@ jQuery(document).ready(function () {
             }
         });
     }
+
 });
