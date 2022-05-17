@@ -51,27 +51,26 @@ jQuery(document).ready(function () {
     });
 
     //TODO: Delete from cart
-    $(document).on("click", ".remove-from-cart", function(e) {
-        e.preventDefault();
-        $id = $('.cart_product_id').val();
-        var url = '/delete-from-cart';
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var data = {
-            "id" : $('.cart_product_id').val()
-        }
-        $.ajax({
-            type: 'DELETE',
-            url: url,
-            data: data,
-            dataType: 'json',
-            success: function(data) {
-                toastr.success("Xóa sản phẩm khỏi giỏ hàng thành công");
-                cartCount();
-            }
-        });
-    });
+    // $(document).on("click", ".remove-from-cart", function(e) {
+    //     e.preventDefault();
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     var data = {
+    //         "id" : $('.cart_product_id').val()
+    //     };
+    //     var url = '/delete-from-cart';
+    //     $.ajax({
+    //         type: 'DELETE',
+    //         url: url,
+    //         data: data,
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             toastr.success("Xóa sản phẩm khỏi giỏ hàng thành công");
+    //             cartCount();
+    //         }
+    //     });
+    // });
 });

@@ -26,7 +26,7 @@ class UserCartController extends Controller
         if($cart == true) {
             $is_available = 0;
             foreach($cart as $key => $item) {
-                if($item['product_id']==$data['cart_product_id']) {
+                if($item['id']==$data['cart_product_id']) {
                     $is_available++;
                 }
             }
@@ -58,15 +58,16 @@ class UserCartController extends Controller
     }
 
     public function deleteCart(Request $request) {
-        $id = $request->input('cart_product_id');
-        $cart = session()->get('cart');
-        if($cart) {
-            foreach($cart as $key => $item) {
-                if($item["id"] == $id) {
-                    unset($cart[$key]);
-                }
-            }
-            session()->put('cart', $cart);
-        }
+        // $id = $request->input('cart_product_id');
+        // return dd($id);
+        // $cart = session()->get('cart');
+        // if($cart) {
+        //     foreach($cart as $key => $item) {
+        //         if($item["id"] == $id) {
+        //             unset($cart[$key]);
+        //         }
+        //     }
+        //     session()->put('cart', $cart);
+        // }
     }
 }

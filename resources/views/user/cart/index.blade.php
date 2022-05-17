@@ -51,7 +51,6 @@
                                             ?>
                                                 <tr class="row-cart">
                                                     <td>
-                                                        <input type="hidden" value="{{$item['id']}}" class="cart_product_id">
                                                         <a href="product-details.html">
                                                             <img src="{{asset($item['product_image'])}}" alt="product"></a>
                                                         </td>
