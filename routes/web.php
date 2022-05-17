@@ -14,6 +14,8 @@ use App\Http\Controllers\User\UserRegisterController;
 use App\Http\Controllers\User\UserMemberController;
 use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\UserBlogController;
+use App\Http\Controllers\User\UserCartController;
+
 
 use App\Http\Controllers\API\Admin\LoginController as AdminLoginController;
 
@@ -83,6 +85,11 @@ Route::namespace('Admin')->group(function () {
 });
 
 Route::namespace('User')->group(function() {
+    Route::get('/cart-count', [UserCartController:: class, 'cartCount'])->name('user.cart_count');
+    Route::post('/add-to-cart', [UserCartController:: class, 'addCart'])->name('user.add_cart');
+    Route::delete('/delete-from-cart', [UserCartController:: class, 'deleteCart'])->name('user.delete_cart');
+    Route::get('/show-cart', [UserCartController:: class, 'showCart'])->name('user.show_cart');
+
     Route::middleware('checkStatus')->group(function() {
         Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
         Route::get('/login', [UserLoginController::class, 'loginForm'])->name('user.show_login');

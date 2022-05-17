@@ -25,32 +25,56 @@
                             <li class="mini-cart-icon">
                                 <div class="mini-cart mini-cart--1">
                                     <a class="mini-cart__dropdown-toggle bordered-icon" id="cartDropdown">
-                                        <span class="mini-cart__count"></span><i class="icon_cart_alt mini-cart__icon"></i>
+                                        <span class="mini-cart__count">
+                                            0
+                                        </span><i class="icon_cart_alt mini-cart__icon"></i>
                                     </a>
                                     <div class="mini-cart__dropdown-menu">
                                         <div class="mini-cart__content" id="miniCart">
+                                        @if(session()->get('cart'))
                                             <div class="mini-cart__item">
+                                            <?php 
+                                                 $total = 0;
+                                            ?>
+                                                @foreach(session()->get('cart') as $key => $item)
+                                                <?php 
+                                                    $subtotal = $item['product_qty'] * $item['product_price'];
+                                                    $total += $subtotal;
+                                                ?>
                                                 <div class="mini-cart__item--single">
                                                     <div class="mini-cart__item--image">
-                                                        <img src="" alt="product">
+                                                        <img src="{{asset($item['product_image'])}}" alt="product">
                                                     </div>
                                                     <div class="mini-cart__item--content">
                                                         <h4 class="mini-cart__item--name">
-                                                            <a href=""></a>
+                                                            <a href="">{{$item['product_name']}}</a>
                                                         </h4>
-                                                        <p class="mini-cart__item--quantity"></p>
-                                                        <p class="mini-cart__item--price">đ</p>
+                                                        <p class="mini-cart__item--quantity">x{{$item['product_qty']}}</p>
+                                                        <p class="mini-cart__item--price">
+                                                            {{number_format($item['product_qty'] * $item['product_price'])}}
+                                                        </p>
                                                     </div>
                                                 </div>
+                                                @endforeach
                                             </div>
+                                            @else
+                                                <p>Giỏ hàng trống</p>
+                                            @endif
                                             <div class="mini-cart__calculation">
+                                                @if(session()->get('cart'))
+                                                <p>
+                                                    <span class="mini-cart__calculation--item">Tổng tiền: {{number_format($total)}}</span>
+                                                    <span class="mini-cart__calculation--ammount">đ</span>
+                                                </p>
+                                                @else
                                                 <p>
                                                     <span class="mini-cart__calculation--item">Tổng tiền:</span>
                                                     <span class="mini-cart__calculation--ammount">đ</span>
                                                 </p>
+                                                @endif
                                             </div>
                                             <div class="mini-cart__btn">
-                                                <a href="" class="btn btn-fullwidth btn-style-1">Đến giỏ hàng</a>
+                                                <a href="{{route('user.show_cart')}}" class="btn btn-fullwidth btn-style-1">Đến giỏ hàng</a>
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +129,7 @@
                             <li class="mainmenu__item menu-item-has-children has-children">
                                 <a href="#" class="mainmenu__link">Trang</a>
                                 <ul class="sub-menu">
-                                    <li><a href="">Giỏ hàng</a></li>
+                                    <li><a href="{{route('user.show_cart')}}">Giỏ hàng</a></li>
                                     <li><a href="">Thanh toán</a></li>
                                 </ul>
                             </li>
