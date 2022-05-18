@@ -41,41 +41,7 @@
                                         </thead>
                                         @if(session()->get('cart'))
                                         <tbody id="cart-content">
-                                        <?php 
-                                                 $total = 0;
-                                            ?>
-                                            @foreach(session()->get('cart') as $key => $item)
-                                            <?php 
-                                                 $subtotal = $item['product_qty'] * $item['product_price'];
-                                                 $total += $subtotal;
-                                            ?>
-                                                <tr class="row-cart">
-                                                    <td>
-                                                        <input type="hidden" name="id" value="{{$item['id']}}">
-                                                        <a href="product-details.html">
-                                                            <img src="{{asset($item['product_image'])}}" alt="product"></a>
-                                                    </td>
-                                                    <td class="wide-column">
-                                                        <h3><a href="">{{$item['product_name']}}</a></h3>
-                                                    </td>
-                                                    <td class="cart-product-color"><strong>{{$item['product_color']}}</strong></td>
-                                                    <td class="cart-product-price">
-                                                        <strong>{{number_format($item['product_price'])}} đ</strong>
-                                                    </td>
-                                                    <td>
-                                                        <div class="quantity"><input type="number"
-                                                            class="quantity-input" name="qty" value="{{$item['product_qty']}}"
-                                                            min="1"></div>
-                                                    </td>
-                                                    <td class="cart-product-price">
-                                                        <strong>{{ number_format($item['product_price'] * $item['product_qty']) }} đ</strong>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="remove-from-cart" data-id="{{$item['id']}}"><i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
+                                     
                                         </tbody>
                                         @else
                                             <h3 class="text-warning">* Giỏ hàng đang trống</h3>
@@ -85,11 +51,8 @@
                                 <div class="row">
                                     <div class="col-12 text-md-right">
                                         <div class="cart-btn-group">
-                                        <div class="quantity"><input type="number"
-                                                                class="quantity-input" name="qty" value="2"
-                                                                min="1"></div>
-                                            <a href="#" class="btn btn-medium btn-style-3" id="btn-save">Cập nhật</a></div>
-                                            
+                                            <a href="#" class="btn btn-medium btn-style-3" id="btn-save">Cập nhật</a>
+                                        </div>
                                     </div>
                                 </div>
                             </form><!-- Cart Area End -->
@@ -106,6 +69,11 @@
                                         <tbody>
                                             <tr class="cart-total">
                                                 <th>Tổng tiền</th>
+                                                @if(session()->get('cart'))
+                                                <td id="cart-total"></td>
+                                                @else
+                                                <td><span class="price-ammount"> đ</span></td>
+                                                @endif
                                             </tr>
                                         </tbody>
                                     </table>

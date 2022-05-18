@@ -28,14 +28,18 @@ jQuery(document).ready(function () {
             dataType: 'json',
             success: function(response) {
                 $('#cart-content').html('');
+                var total = 0;
                 $.each(response.cart, function(key, item) {
+                    var subTotal = 0;
+                    subTotal = item['product_qty'] * item['product_price'];
+                    total = total + subTotal;
                     $('#cart-content').append(
                         '<tr class="row-cart">\
-                            <td>\
-                                <input type="hidden" name="id" value="'+item['id']+'">\
-                                <a href="product-details.html">\
-                                    <img src="'+item['product_image']+'" alt="product">\
-                                </a>\
+                                <td>\
+                                    <input type="hidden" name="id" value="'+item['id']+'">\
+                                    <a href="product-details.html">\
+                                        <img src="'+item['product_image']+'" alt="product">\
+                                    </a>\
                                 </td>\
                                 <td class="wide-column">\
                                     <h3><a href="">'+item['product_name']+'</a></h3>\
@@ -57,11 +61,12 @@ jQuery(document).ready(function () {
                                 </td>\
                     </tr>');
                 });
+
+                $('#cart-total').html('');
+                $('#cart-total').append('<span class="price-ammount">'+(formatCurrency(total))+'</span>')
             }
         });
     }
-
-    //TODO: Fetch
 
     //TODO: Add to cart
     $(document).on("click", ".add-to-cart", function (e) {
