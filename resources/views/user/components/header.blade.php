@@ -33,43 +33,20 @@
                                         <div class="mini-cart__content" id="miniCart">
                                         @if(session()->get('cart'))
                                             <div class="mini-cart__item">
-                                            <?php 
-                                                 $total = 0;
-                                            ?>
-                                                @foreach(session()->get('cart') as $key => $item)
-                                                <?php 
-                                                    $subtotal = $item['product_qty'] * $item['product_price'];
-                                                    $total += $subtotal;
-                                                ?>
-                                                <div class="mini-cart__item--single">
-                                                    <div class="mini-cart__item--image">
-                                                        <img src="{{asset($item['product_image'])}}" alt="product">
-                                                    </div>
-                                                    <div class="mini-cart__item--content">
-                                                        <h4 class="mini-cart__item--name">
-                                                            <a href="">{{$item['product_name']}}</a>
-                                                        </h4>
-                                                        <p class="mini-cart__item--quantity">x{{$item['product_qty']}}</p>
-                                                        <p class="mini-cart__item--price">
-                                                            {{number_format($item['product_qty'] * $item['product_price'])}}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                @endforeach
+                                           
                                             </div>
                                             @else
                                                 <p>Giỏ hàng trống</p>
                                             @endif
                                             <div class="mini-cart__calculation">
                                                 @if(session()->get('cart'))
-                                                <p>
-                                                    <span class="mini-cart__calculation--item">Tổng tiền: {{number_format($total)}}</span>
-                                                    <span class="mini-cart__calculation--ammount">đ</span>
+                                                <p id="cart-mini__total">
+                                                   
                                                 </p>
                                                 @else
                                                 <p>
                                                     <span class="mini-cart__calculation--item">Tổng tiền:</span>
-                                                    <span class="mini-cart__calculation--ammount">đ</span>
+                                                    <span class="mini-cart__calculation--ammount">0 VND</span>
                                                 </p>
                                                 @endif
                                             </div>

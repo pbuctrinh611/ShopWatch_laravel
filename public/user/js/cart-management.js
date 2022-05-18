@@ -68,6 +68,43 @@ jQuery(document).ready(function () {
         });
     }
 
+    //TODO: Fetch mini cart in header
+    fetchMiniCart();
+    function fetchMiniCart(){
+        $.ajax({
+            url: 'fetch-mini__cart',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('.mini-cart__item').html('');
+                var total = 0;
+                $.each(response.cart, function(key, item) {
+                    var subTotal = 0;
+                    subTotal = item['product_qty'] * item['product_price'];
+                    total = total + subTotal;
+                    $('.mini-cart__item').append(
+                    '<div class="mini-cart__item--single">\
+                        <div class="mini-cart__item--image">\
+                            <img src="'+item['product_image']+'" alt="product">\
+                        </div>\
+                        <div class="mini-cart__item--content">\
+                            <h4 class="mini-cart__item--name">\
+                                <a href="">'+item['product_name']+'</a>\
+                            </h4>\
+                            <p class="mini-cart__item--quantity">x'+item['product_qty']+'</p>\
+                            <p class="mini-cart__item--price">\
+                                '+(formatCurrency(item['product_price'] * item['product_qty'])) +'\
+                            </p>\
+                        </div>\
+                </div>')
+                });
+                $('#cart-mini__total').html('');
+                $('#cart-mini__total').append(
+                    '<span class="mini-cart__calculation--item">Tổng tiền: '+ (formatCurrency(total))+'</span>')
+            }
+        });
+    }
+
     //TODO: Add to cart
     $(document).on("click", ".add-to-cart", function (e) {
         e.preventDefault();
@@ -101,6 +138,7 @@ jQuery(document).ready(function () {
             success: function (data) {
                 toastr.success("Thêm vào giỏ hàng thành công!");
                 cartCount();
+                fetchMiniCart();
             }
         });
     });
@@ -116,7 +154,7 @@ jQuery(document).ready(function () {
         var id= $(this).data('id');
         $.ajax({
             url: '/delete-from-cart',
-            type: 'POST',
+            type: 'DELETE',
             data: {
                 id: id
             },
@@ -124,6 +162,7 @@ jQuery(document).ready(function () {
                 toastr.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
                 cartCount();
                 fetchCartPage();
+                fetchMiniCart();
             }
         });
     });

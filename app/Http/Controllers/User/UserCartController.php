@@ -26,6 +26,11 @@ class UserCartController extends Controller
         return response()->json(['cart' => $cart]);
     }
 
+    public function fetchMiniCart() {
+        $cart = session()->get('cart');
+        return response()->json(['cart' => $cart]);
+    }
+
     public function addCart(Request $request)
     {
         $data = $request->all();
