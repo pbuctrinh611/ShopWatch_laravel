@@ -56,7 +56,7 @@ Chi tiết sản phẩm
                             </div>
                             <div class="product-details-bottom">
                                 <p class="product-details-availability"><i class="fa fa-check-circle"></i>
-                                    Số lượng còn: <span id="product_qty"></span>
+                                    Số lượng còn: <span id="product_qty_stock" name="product_qty_stock" class="cart_product_qty_stock_{{$product->id}}"></span>
                                 </p>
                                 <div class="product-details-action-wrapper mb--20">
                                     <div class="product-details-action-top d-flex align-items-center mb--20">

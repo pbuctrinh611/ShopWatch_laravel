@@ -44,13 +44,13 @@ jQuery(document).ready(function() {
     //TODO: Display product number default
     var optionDefault = $('#id_color > option').eq(0);
     var productQuantyDefault = optionDefault.data('qty');
-    $('#product_qty').text(productQuantyDefault);
+    $('#product_qty_stock').text(productQuantyDefault);
 
     //TODO: Display product number according to the color selected
     $(document).on('change', '#id_color', function(e) {
         e.preventDefault();
         var optionSelected = $("option:selected", this);
         var productQuantySelected = optionSelected.data('qty');
-        $('#product_qty').text(productQuantySelected);
+        $('#product_qty_stock').text(productQuantySelected);
     });
 });

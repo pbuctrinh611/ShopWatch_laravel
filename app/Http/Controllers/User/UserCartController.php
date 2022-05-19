@@ -52,7 +52,7 @@ class UserCartController extends Controller
                     'product_name' =>  $data['cart_product_name'],
                     'product_price' => $data['cart_product_price'],
                     'product_color' => $data['cart_product_color'],
-                    'product_qty' => $data['cart_product_qty']
+                    'product_qty' => $data['cart_product_qty'],
                 );
                 session()->put('cart', $cart);
             }
@@ -64,7 +64,7 @@ class UserCartController extends Controller
                 'product_name' =>  $data['cart_product_name'],
                 'product_price' => $data['cart_product_price'],
                 'product_color' => $data['cart_product_color'],
-                'product_qty' => $data['cart_product_qty']
+                'product_qty' => $data['cart_product_qty'],
             );
         }
         session()->put('cart', $cart);
