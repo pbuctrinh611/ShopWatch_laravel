@@ -19,6 +19,21 @@ jQuery(document).ready(function () {
         });
     }
 
+    //TODO: Increment button
+    $(document).on('click', '.increment-btn', function(e) {
+        e.preventDefault();
+        var id  = $(this).data('id');
+        var product_qty = parseInt($('#cart_product_qty_' + id).val());
+        $('#cart_product_qty_' + id).val(product_qty + 1);
+    });
+
+    //TODO: Decrement button 
+    $(document).on('click', '.decrement-btn', function(e) {
+        var id  = $(this).data('id');
+        var product_qty = parseInt($('#cart_product_qty_' + id).val());
+        $('#cart_product_qty_' + id).val(product_qty - 1);
+    });
+
     //TODO: Fetch cart page
     fetchCartPage();
     function fetchCartPage() {
@@ -48,9 +63,16 @@ jQuery(document).ready(function () {
                                 <td class="cart-product-price">\
                                     <strong>'+(formatCurrency(item['product_price']))+'\</strong>\
                                 </td>\
-                                <td>\
-                                    <div class="quantity">\
-                                        <input type="number" class="quantity-input" name="qty" value="'+item['product_qty']+'" min="1">\
+                                <td width="140px">\
+                                    <div class="input-group quantity" style="width: 110px !important; height: 40px !important;">\
+                                        <div class="input-group-prepend decrement-btn changeQuantity" data-id='+item['id']+' style="cursor: pointer">\
+                                            <span class="input-group-text" style="font-size: 18px !important">-</span>\
+                                        </div>\
+                                        <input type="text" class="qty-input form-control" id="cart_product_qty_'+item['id']+'" value="'+item['product_qty']+'"\
+                                        style="font-size:20px; height: 40px;">\
+                                        <div class="input-group-append increment-btn changeQuantity"  data-id='+item['id']+' style="cursor: pointer">\
+                                            <span class="input-group-text"  style="font-size: 18px !important">+</span>\
+                                        </div>\
                                     </div>\
                                 </td>\
                                 <td class="cart-product-price">\
@@ -152,6 +174,8 @@ jQuery(document).ready(function () {
             });
         }
     });
+
+    //TODO: Update cart
 
     //TODO: Delete from cart
     $(document).on("click", ".remove-from-cart", function(e) {

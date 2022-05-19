@@ -71,6 +71,9 @@ class UserCartController extends Controller
         session()->save();
     }
 
+    public function updateCart(Request $request) {
+        
+    }
     public function deleteCart(Request $request)
     {
         if ($request->ajax()) {
