@@ -48,13 +48,13 @@
                                         @endif
                                     </table>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-12 text-md-right">
                                         <div class="cart-btn-group">
-                                            <a href="#" class="btn btn-medium btn-style-3" id="btn-save">Cập nhật</a>
+                                            <button type="button" class="btn btn-medium btn-style-3">Cập nhật</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </form><!-- Cart Area End -->
                         </div>
                     </div>

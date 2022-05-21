@@ -29,9 +29,14 @@ jQuery(document).ready(function () {
 
     //TODO: Decrement button 
     $(document).on('click', '.decrement-btn', function(e) {
+        e.preventDefault();
         var id  = $(this).data('id');
         var product_qty = parseInt($('#cart_product_qty_' + id).val());
-        $('#cart_product_qty_' + id).val(product_qty - 1);
+        if(product_qty < 1) {
+            $('#cart_product_qty_' + id).val(1);
+        }else {
+            $('#cart_product_qty_' + id).val(product_qty - 1);
+        }
     });
 
     //TODO: Fetch cart page
@@ -68,18 +73,21 @@ jQuery(document).ready(function () {
                                         <div class="input-group-prepend decrement-btn changeQuantity" data-id='+item['id']+' style="cursor: pointer">\
                                             <span class="input-group-text" style="font-size: 18px !important">-</span>\
                                         </div>\
-                                        <input type="text" class="qty-input form-control" id="cart_product_qty_'+item['id']+'" value="'+item['product_qty']+'"\
+                                        <input type="number" min="1" class="qty-input form-control" id="cart_product_qty_'+item['id']+'"\
+                                        name="cart_product_qty" value="'+item['product_qty']+'"\
                                         style="font-size:20px; height: 40px;">\
                                         <div class="input-group-append increment-btn changeQuantity"  data-id='+item['id']+' style="cursor: pointer">\
                                             <span class="input-group-text"  style="font-size: 18px !important">+</span>\
                                         </div>\
                                     </div>\
                                 </td>\
+                                <input type="hidden" name="product_qty_stock" value="'+item['product_qty_stock']+'">\
                                 <td class="cart-product-price">\
                                     <strong>'+(formatCurrency(item['product_price'] * item['product_qty'])) +'</strong>\
                                 </td>\
-                                <td>\
-                                    <button type="button" class="remove-from-cart" data-id="'+item['id']+'"><i class="fa fa-times"></i></button>\
+                                <td width="220px">\
+                                    <button type="button" class="btn btn-primary update-from-cart mr-2" data-id="'+item['id']+'">Edit</button>\
+                                    <button type="button" class="btn btn-danger remove-from-cart" data-id="'+item['id']+'">Remove</button>\
                                 </td>\
                     </tr>');
                 });
@@ -164,6 +172,7 @@ jQuery(document).ready(function () {
                     cart_product_price : cart_product_price,
                     cart_product_color : cart_product_color,
                     cart_product_qty : cart_product_qty,
+                    cart_product_qty_stock : cart_product_qty_stock,
                     _token:_token
                 },
                 success: function (data) {
@@ -176,6 +185,29 @@ jQuery(document).ready(function () {
     });
 
     //TODO: Update cart
+    $(document).on('click', '.update-from-cart', function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var id = $(this).data('id');
+        var product_qty = parseInt($(this).parents('tr').find('.qty-input').val());
+        $.ajax({
+            url: '/update-to-cart',
+            type: 'PUT',
+            data: {
+                id: id,
+                product_qty: product_qty,
+            },
+            success: function (data) {
+                toastr.success("Cập nhật giỏ hàng thành công!");
+                fetchCartPage();
+                fetchMiniCart();
+            }
+        });
+    });
 
     //TODO: Delete from cart
     $(document).on("click", ".remove-from-cart", function(e) {

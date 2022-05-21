@@ -60,11 +60,6 @@ class UserProductController extends Controller
         $brands = Brand::where('status', 1)->get();
         $colors = Color::all();
         $product = Product::with('category', 'brand', 'color')->where('product.id', $id)->first();
-        if($request->ajax()) {
-            return response()->json([
-
-            ]);
-        }
         return view('user.product.detail', compact('product', 'categories', 'brands', 'colors'));
     }
 

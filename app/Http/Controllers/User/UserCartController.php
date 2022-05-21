@@ -53,6 +53,7 @@ class UserCartController extends Controller
                     'product_price' => $data['cart_product_price'],
                     'product_color' => $data['cart_product_color'],
                     'product_qty' => $data['cart_product_qty'],
+                    'product_qty_stock' => $data['cart_product_qty_stock'],
                 );
                 session()->put('cart', $cart);
             }
@@ -65,6 +66,7 @@ class UserCartController extends Controller
                 'product_price' => $data['cart_product_price'],
                 'product_color' => $data['cart_product_color'],
                 'product_qty' => $data['cart_product_qty'],
+                'product_qty_stock' => $data['cart_product_qty_stock'],
             );
         }
         session()->put('cart', $cart);
@@ -72,8 +74,21 @@ class UserCartController extends Controller
     }
 
     public function updateCart(Request $request) {
-        
+       $id = $request->id;
+       $product_qty = $request->product_qty;
+       if($request->id && $request->product_qty) {
+           $cart = session()->get('cart');
+           if($cart == true) {
+               foreach($cart as $key => $item) {
+                   if($cart[$key]['id'] == $id) {
+                       $cart[$key]['product_qty'] = $product_qty;
+                   }
+               }
+               session()->put('cart', $cart);
+           }
+       }
     }
+
     public function deleteCart(Request $request)
     {
         if ($request->ajax()) {
