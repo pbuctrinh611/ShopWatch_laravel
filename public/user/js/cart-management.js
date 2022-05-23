@@ -64,6 +64,7 @@ jQuery(document).ready(function () {
                                 <td class="wide-column">\
                                     <h3><a href="">'+item['product_name']+'</a></h3>\
                                 </td>\
+                                <input type="hidden" class="cart_product_id_color" value="'+item['product_id_color']+'">\
                                 <td class="cart-product-color"><strong>'+item['product_color']+'</strong></td>\
                                 <td class="cart-product-price">\
                                     <strong>'+(formatCurrency(item['product_price']))+'\</strong>\
@@ -148,10 +149,12 @@ jQuery(document).ready(function () {
         var cart_product_image = $('#addCartForm').find('.cart_product_image_' + id).val();
         var cart_product_name = $('#addCartForm').find('.cart_product_name_' + id).text();
         var cart_product_price = $('#addCartForm').find('.cart_product_price_' + id).val();
+        var cart_product_id_color = $('#addCartForm').find('#id_color').val();
         var cart_product_color = $('#addCartForm').find('.cart_product_color:selected').text();
         var cart_product_qty = $('#addCartForm').find('.cart_product_qty_' + id).val();
         var cart_product_qty_stock = parseInt($('#addCartForm').find('.cart_product_qty_stock_' + id).text());
         //console.log($.isNumeric(cart_product_qty_stock))
+        console.log(cart_product_id_color);
        
         var _token = $('input[name="_token"]').val();
         var url = "/cart/add"
@@ -170,6 +173,7 @@ jQuery(document).ready(function () {
                     cart_product_image: cart_product_image,
                     cart_product_name : cart_product_name,
                     cart_product_price : cart_product_price,
+                    cart_product_id_color : cart_product_id_color,
                     cart_product_color : cart_product_color,
                     cart_product_qty : cart_product_qty,
                     cart_product_qty_stock : cart_product_qty_stock,

@@ -49,7 +49,9 @@ Chi tiết sản phẩm
                                     <label>Màu sắc</label>
                                     <select name="id_color" id="id_color" class="product-color" form="product-cart">
                                         @foreach ($product->colors as $item)
-                                            <option class="cart_product_color" value="{{$item->id_color}}" data-qty="{{ $item->qty }}">{{$item->color->name}}</option>
+                                            <option class="cart_product_color" value="{{$item->id_color}}" data-qty="{{ $item->qty }}">
+                                                {{$item->color->name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
