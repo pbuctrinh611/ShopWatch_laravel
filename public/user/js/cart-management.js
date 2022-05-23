@@ -81,7 +81,7 @@ jQuery(document).ready(function () {
                                         </div>\
                                     </div>\
                                 </td>\
-                                <input type="hidden" name="product_qty_stock" value="'+item['product_qty_stock']+'">\
+                                <input type="hidden" name="product_qty_stock" class="qty-stock-input" value="'+item['product_qty_stock']+'">\
                                 <td class="cart-product-price">\
                                     <strong>'+(formatCurrency(item['product_price'] * item['product_qty'])) +'</strong>\
                                 </td>\
@@ -154,11 +154,11 @@ jQuery(document).ready(function () {
         //console.log($.isNumeric(cart_product_qty_stock))
        
         var _token = $('input[name="_token"]').val();
-        var url = "/add-to-cart"
+        var url = "/cart/add"
         if(cart_product_qty_stock == 0) {
             toastr.error("Sản phẩm này đã hết hàng!");
         }else if(cart_product_qty > cart_product_qty_stock){
-            toastr.error("Không được đặt quá giá trị cho phép!");
+            toastr.error("Không được mua quá số lượng còn trong kho");
         }else if(cart_product_qty < 1) {
             toastr.error("Bạn phải đặt ít nhất một sản phẩm!");
         }else{
@@ -194,19 +194,30 @@ jQuery(document).ready(function () {
         });
         var id = $(this).data('id');
         var product_qty = parseInt($(this).parents('tr').find('.qty-input').val());
-        $.ajax({
-            url: '/update-to-cart',
-            type: 'PUT',
-            data: {
-                id: id,
-                product_qty: product_qty,
-            },
-            success: function (data) {
-                toastr.success("Cập nhật giỏ hàng thành công!");
-                fetchCartPage();
-                fetchMiniCart();
-            }
-        });
+        var product_qty_stock = parseInt($(this).parents('tr').find('.qty-stock-input').val());
+        if(product_qty < 1) {
+            toastr.error("Bạn phải đặt ít nhất một sản phẩm!");
+            fetchCartPage();
+            fetchMiniCart();
+        }else if(product_qty > product_qty_stock) {
+            toastr.error("Không được mua quá số lượng còn trong kho");
+            fetchCartPage();
+            fetchMiniCart();
+        }else {
+            $.ajax({
+                url: '/cart/update',
+                type: 'PUT',
+                data: {
+                    id: id,
+                    product_qty: product_qty,
+                },
+                success: function (data) {
+                    toastr.success("Cập nhật giỏ hàng thành công!");
+                    fetchCartPage();
+                    fetchMiniCart();
+                }
+            });
+        }
     });
 
     //TODO: Delete from cart
@@ -219,7 +230,7 @@ jQuery(document).ready(function () {
         });
         var id= $(this).data('id');
         $.ajax({
-            url: '/delete-from-cart',
+            url: '/cart/delete',
             type: 'DELETE',
             data: {
                 id: id

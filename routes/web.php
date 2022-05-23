@@ -85,14 +85,17 @@ Route::namespace('Admin')->group(function () {
 });
 
 Route::namespace('User')->group(function() {
+
     Route::get('/cart-count', [UserCartController:: class, 'cartCount'])->name('user.cart_count');
-    Route::post('/add-to-cart', [UserCartController:: class, 'addCart'])->name('user.add_cart');
-    Route::put('/update-to-cart', [UserCartController:: class, 'updateCart'])->name('user.update_cart');
-    Route::delete('/delete-from-cart', [UserCartController:: class, 'deleteCart'])->name('user.delete_cart');
-    Route::get('/show-cart', [UserCartController:: class, 'showCart'])->name('user.show_cart');
     Route::get('/fetch-cart__page', [UserCartController:: class, 'fetchCartPage'])->name('user.fetch-cart__page');
     Route::get('/fetch-mini__cart', [UserCartController:: class, 'fetchMiniCart'])->name('user.fetch-mini__cart');
-
+    Route::prefix('cart')->group(function() {
+        Route::get('/', [UserCartController:: class, 'showCart'])->name('user.show_cart');
+        Route::post('/add', [UserCartController:: class, 'addCart'])->name('user.add_cart');
+        Route::put('/update', [UserCartController:: class, 'updateCart'])->name('user.update_cart');
+        Route::delete('/delete', [UserCartController:: class, 'deleteCart'])->name('user.delete_cart');
+    });
+   
     Route::middleware('checkStatus')->group(function() {
         Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
         Route::get('/login', [UserLoginController::class, 'loginForm'])->name('user.show_login');
@@ -118,6 +121,10 @@ Route::namespace('User')->group(function() {
         Route::get('fetch-blog__page', [UserBlogController::class, 'fetchBlogPage'])->name('user.blog.fetch-blog__page');
         Route::prefix('blog')->group(function () {
             Route::get('/', [UserBlogController::class, 'index'])->name('user.blog.index');
+        });
+
+        Route::prefix('checkout')->group(function () {
+            Route::get('/', [UserCheckoutController::class, 'index'])->name('user.checkout');
         });
     });
 });
