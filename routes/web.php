@@ -15,6 +15,7 @@ use App\Http\Controllers\User\UserMemberController;
 use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\UserBlogController;
 use App\Http\Controllers\User\UserCartController;
+use App\Http\Controllers\User\UserCheckoutController;
 
 
 use App\Http\Controllers\API\Admin\LoginController as AdminLoginController;

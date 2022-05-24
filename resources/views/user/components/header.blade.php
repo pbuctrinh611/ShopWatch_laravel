@@ -107,7 +107,11 @@
                                 <a href="#" class="mainmenu__link">Trang</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{route('user.show_cart')}}">Giỏ hàng</a></li>
-                                    <li><a href="">Thanh toán</a></li>
+                                    @if(Auth::check())
+                                        <li><a href="{{route('user.checkout')}}">Thanh toán</a></li>
+                                    @else
+                                        <li><a href="{{route('user.show_login')}}">Thanh toán</a></li>
+                                    @endif
                                 </ul>
                             </li>
                             <li class="mainmenu__item">

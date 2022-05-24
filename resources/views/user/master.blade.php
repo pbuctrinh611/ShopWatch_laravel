@@ -47,6 +47,7 @@
 <script src="{{ asset('user/js/product-page.js') }}"></script>
 <script src="{{ asset('user/js/product-detail.js') }}"></script>
 <script src="{{ asset('user/js/cart-management.js') }}"></script>
+<script src="{{ asset('user/js/checkout-page.js') }}"></script>
 <script src="{{ asset('user/js/blog-page.js') }}"></script>
 <script src="{{ asset('user/js/user-register.js') }}"></script>
 <script src="{{ asset('user/js/user-information.js') }}"></script>

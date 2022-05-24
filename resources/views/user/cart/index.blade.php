@@ -77,7 +77,12 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div><a href="#" class="btn btn-medium btn-style-3">Thanh toán</a>
+                                </div>
+                                @if(Auth::check())
+                                    <a href="{{route('user.checkout')}}"  class="btn btn-medium btn-style-3">Thanh toán</a>
+                                @else
+                                    <a href="{{route('user.show_login')}}"  class="btn btn-medium btn-style-3">Thanh toán</a>
+                                @endif
                             </div>
                         </div>
                     </div>
