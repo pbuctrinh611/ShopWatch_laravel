@@ -73,4 +73,34 @@ jQuery(document).ready(function() {
             }
         });
     }
+
+    $(document).on('click', '.btn-promotion',function(e){
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var code = $('#code').val();
+        console.log(code);
+        $.ajax({
+            url: '/checkout/check-promotion',
+            type: 'POST',
+            data: {
+                code: code,
+            },
+            success: function (response) {
+                if(response.status === 404) {
+                    toastr.error("Không tồn tại mã giảm giá");
+                }else if(response.status == 400) {
+                    toastr.error("Bạn đã sử dụng mã này rồi");
+                }else if(response.status == 204) {
+                    toastr.error("Bạn chưa nhập mã giảm giá");
+                }else{
+                    $('.checkout-money').html('');
+                    toastr.success("Áp dụng mã giảm giá thành công");
+                }
+            }
+        });
+    });
 });

@@ -127,6 +127,7 @@ Route::namespace('User')->group(function() {
         Route::get('fetch-checkout__page', [UserCheckoutController::class, 'fetchCheckoutPage'])->name('user.blog.fetch-checkout__page');
         Route::prefix('checkout')->group(function () {
             Route::get('/', [UserCheckoutController::class, 'index'])->name('user.checkout');
+            Route::post('/check-promotion', [UserCheckoutController::class, 'checkPromotion'])->name('user.check-promotion');
         });
     });
 });
