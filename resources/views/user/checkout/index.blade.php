@@ -81,30 +81,17 @@
                                     <div class="order-table table-content table-responsive mb--30">
                                         <table class="table">
                                             <thead>
-                                            <tr>
-                                                <th>Sản phẩm</th>
-                                                <th>Thành tiền</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Sản phẩm</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Thành tiền</th>
+                                                </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td><strong></strong></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong></strong></td>
-                                                <td></td>
-                                            </tr>
+                                            <tbody class="checkout-content">
+                                               
                                             </tbody>
-                                            <tfoot>
-                                            <tr class="cart-subtotal">
-                                                <th>Tạm tính</th>
-                                                <td></td>
-                                            </tr>
-                                            <tr class="order-total">
-                                                <th>Tổng tiền</th>
-                                                <td><span class="order-total-ammount"></span></td>
-                                            </tr>
+                                            <tfoot class="checkout-money">
+                                               
                                             </tfoot>
                                         </table>
                                     </div>

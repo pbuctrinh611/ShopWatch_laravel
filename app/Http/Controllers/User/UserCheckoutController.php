@@ -11,4 +11,11 @@ class UserCheckoutController extends Controller
         return view('user.checkout.index');
     }
 
+    public function fetchCheckoutPage() {
+        $cart = session()->get('cart');
+        return response()->json([
+            'cart' => $cart
+        ]);
+    }
+
 }
