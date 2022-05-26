@@ -18,8 +18,8 @@
                                     <div id="coupon_info" class="user-actions__form user-actions--coupon hide-in-default">
                                             <div class="form__group d-flex">
                                                 <input type="text" name="code" id="code" class="form__input form__input--2 form__input--w285 mr--20"
-                                                placeholder="Promotion Code">
-                                                <button type="button" class="btn btn-medium btn-style-3 btn-promotion">Áp dụng mã</button>
+                                                placeholder="Nhập mã giảm giá">
+                                                <button type="button" class="btn btn-medium btn-style-3 btn-promotion">Áp dụng</button>
                                             </div>
                                     </div>
                                 </div>
