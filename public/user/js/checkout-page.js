@@ -64,10 +64,15 @@ jQuery(document).ready(function() {
                 $('.checkout-money').append(
                     '<tr class="cart-subtotal">\
                         <td>Tạm tính</td>\
-                        <td colspan="2">'+ (formatCurrency(total))+'</td>\
+                        <td colspan="2" class="order-subtotal-amount">'+ (formatCurrency(total))+'</td>\
                     </tr>\
-                    <tr class="order-total">\
+                    <tr class="d-none cart-discount">\
+                        <td>Giảm giá</td>\
+                        <td colspan="2" class="order-total-discount"></td>\
+                    </tr>\
+                    <tr class="cart-total">\
                         <td>Tổng tiền</td>\
+                        <input type="hidden" id="total-before__convert" name="total-before__convert" value="'+total+'">\
                         <td colspan="2"><span class="order-total-ammount">'+ (formatCurrency(total))+'</span></td>\
                     </tr>');
             }
@@ -82,13 +87,10 @@ jQuery(document).ready(function() {
             }
         });
         var code = $('#code').val();
-        console.log(code);
         $.ajax({
             url: '/checkout/check-promotion',
             type: 'POST',
-            data: {
-                code: code,
-            },
+            data: { code: code },
             success: function (response) {
                 if(response.status === 404) {
                     toastr.error("Không tồn tại mã giảm giá");
@@ -97,7 +99,10 @@ jQuery(document).ready(function() {
                 }else if(response.status == 204) {
                     toastr.error("Bạn chưa nhập mã giảm giá");
                 }else{
-                    $('.checkout-money').html('');
+                    // $('.order-subtotal-amount').text(formatCurrency(response.total));
+                    $('.checkout-money tr:nth-child(2)').removeClass('d-none');
+                    $('.order-total-discount').text(formatCurrency(response.discount_price));
+                    $('.order-total-ammount').text(formatCurrency(response.total));
                     toastr.success("Áp dụng mã giảm giá thành công");
                 }
             }
