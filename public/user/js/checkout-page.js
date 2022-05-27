@@ -40,6 +40,30 @@ jQuery(document).ready(function() {
         });
     }
 
+    fetchPromotionCode();
+    function fetchPromotionCode() {
+        $.ajax({
+            url: 'fetch-promotion__code',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('.gIRASp').html('');
+                $.each(response.promotion_used, function(key, item) {
+                    $('.gIRASp').append(
+                        '<div class="promotion-wrapper d-flex id="user_promotion_id_'+item.id+'"">\
+                            <div class="inner">\
+                                <input type="hidden" name="user_promotion_id"  value="'+item.id+'">\
+                                <div class="content">'+item.promotion.code+'</div>\
+                            </div>\
+                            <button type="button" class="btn-delete__promotion mr-3" data-id='+item.id+'>\
+                                <i class="fa fa-times"></i>\
+                            </button>\
+                        </div>');
+                });
+            }
+        });
+    }
+
     fetchCheckoutPage();
     function fetchCheckoutPage() {
         $.ajax({
@@ -66,9 +90,9 @@ jQuery(document).ready(function() {
                         <td>Tạm tính</td>\
                         <td colspan="2" class="order-subtotal-amount">'+ (formatCurrency(total))+'</td>\
                     </tr>\
-                    <tr class="d-none cart-discount">\
+                    <tr class="cart-discount">\
                         <td>Giảm giá</td>\
-                        <td colspan="2" class="order-total-discount"></td>\
+                        <td colspan="2" class="order-total-discount">0 VND</td>\
                     </tr>\
                     <tr class="cart-total">\
                         <td>Tổng tiền</td>\
@@ -99,11 +123,49 @@ jQuery(document).ready(function() {
                 }else if(response.status == 204) {
                     toastr.error("Bạn chưa nhập mã giảm giá");
                 }else{
-                    // $('.order-subtotal-amount').text(formatCurrency(response.total));
-                    $('.checkout-money tr:nth-child(2)').removeClass('d-none');
+                    $('.gIRASp').html('');
+                    $.each(response.promotion_used, function(key, item) {
+                        $('.gIRASp').append(
+                            '<div class="promotion-wrapper d-flex id="user_promotion_id_'+item.id+'"">\
+                                <div class="inner">\
+                                    <input type="hidden" name="user_promotion_id"  value="'+item.id+'">\
+                                    <div class="content">'+item.promotion.code+'</div>\
+                                </div>\
+                                <button type="button" class="btn-delete__promotion mr-3" data-id='+item.id+'>\
+                                    <i class="fa fa-times"></i>\
+                                </button>\
+                            </div>');
+                    });
+                    // $('.checkout-money tr:nth-child(2)').removeClass('d-none');
                     $('.order-total-discount').text(formatCurrency(response.discount_price));
                     $('.order-total-ammount').text(formatCurrency(response.total));
                     toastr.success("Áp dụng mã giảm giá thành công");
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-delete__promotion', function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var id = $(this).data('id');
+        console.log(id);
+        $.ajax({
+            url: '/checkout/delete-promotion',
+            type: 'DELETE',
+            data: {id: id},
+            success: function(response) {
+                if(response.status == 200) {
+                    $discount_currency =  $('.order-total-discount').text();
+                    $('.order-total-discount').text(formatCurrency(parseInt($discount_currency.replaceAll(',','').replace(' VND','')) - parseInt(response.discount_price)));
+                    $total_currency = $('.order-total-ammount').text();
+                    $('.order-total-ammount').text(formatCurrency(parseInt($total_currency.replaceAll(',','').replace(' VND','')) + parseInt(response.discount_price)));
+                    fetchPromotionCode();
+                    toastr.success("Xóa mã giảm giá thành công");
                 }
             }
         });

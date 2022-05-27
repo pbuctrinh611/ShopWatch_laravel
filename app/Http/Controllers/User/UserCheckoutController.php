@@ -26,6 +26,15 @@ class UserCheckoutController extends Controller
         ]);
     }
 
+    public function fetchPromotionCode() {
+        $id_user = Auth::user()->id;
+        //Lấy ra các mã người dùng đã sử dụng để render ra html
+        $promotion_used = UserPromotion::with('promotion')->where('id_user', $id_user)->get();
+        return response()->json([
+            'promotion_used' => $promotion_used
+        ]);
+    }
+
     public function checkPromotion(Request $request)
     {
         $code = $request->code;
@@ -34,8 +43,8 @@ class UserCheckoutController extends Controller
             if ($check) {
                 $id_user = Auth::user()->id;
                 $check_user = UserPromotion::where('id_user', $id_user)
-                    ->where('id_promotion', $check->id)
-                    ->count();
+                              ->where('id_promotion', $check->id)
+                              ->count();
                 if ($check_user == 0) {
                     UserPromotion::insert([
                         'id_user' => $id_user,
@@ -43,6 +52,7 @@ class UserCheckoutController extends Controller
                     ]);
                     $cart = session()->get('cart');
                     if ($cart == true) {
+                        $promotion_used = UserPromotion::with('promotion')->where('id_user', $id_user)->get();
                         $total = 0;
                         foreach ($cart as $key => $item) {
                             $total = $total + ($item['product_price'] * $item['product_qty']);
@@ -54,6 +64,7 @@ class UserCheckoutController extends Controller
                             'status' => 200,
                             'message' => 'Sử dụng mã giảm giá thành công',
                             'cart' => $cart,
+                            'promotion_used' => $promotion_used,
                             'discount_price' => $discount_price,
                             'total' => $total
                         ]);
@@ -75,6 +86,31 @@ class UserCheckoutController extends Controller
                 'status' => 204,
                 'message' => 'Bạn chưa nhập mã giảm giá'
             ]);
+        }
+    }
+
+    public function deletePromotion(Request $request) {
+        $id = $request->id;
+        if($id) {
+            $user_promotion = UserPromotion::with('promotion')->where('id', $id)->first();
+            if($user_promotion) {
+                $user_promotion->delete();
+                $cart = session()->get('cart');
+                if($cart == true) {
+                    $total = 0;
+                    foreach ($cart as $key => $item) {
+                        $total = $total + ($item['product_price'] * $item['product_qty']);
+                    }
+                    $discount_price = ($total/100)*$user_promotion->promotion->discount;
+                    $total = $total + $discount_price;
+                }
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Xóa mã giảm giá thành công',
+                    'discount_price' => $discount_price,
+                    'total' => $total
+                ]);
+            }
         }
     }
 }

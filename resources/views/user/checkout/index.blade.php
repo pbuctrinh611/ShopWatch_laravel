@@ -16,11 +16,16 @@
                                         <span class="expand_action" data-attr="#coupon_info">Kích vào đây để nhập mã</span>
                                     </h3>
                                     <div id="coupon_info" class="user-actions__form user-actions--coupon hide-in-default">
-                                            <div class="form__group d-flex">
-                                                <input type="text" name="code" id="code" class="form__input form__input--2 form__input--w285 mr--20"
-                                                placeholder="Nhập mã giảm giá">
-                                                <button type="button" class="btn btn-medium btn-style-3 btn-promotion">Áp dụng</button>
+                                        <div class="form__group d-flex">
+                                            <input type="text" name="code" id="code" class="form__input form__input--2 form__input--w285 mr--20"
+                                            placeholder="Nhập mã giảm giá">
+                                            <button type="button" class="btn btn-medium btn-style-3 btn-promotion">Áp dụng</button>
+                                        </div>
+                                        <div class="smal-promotion-list">
+                                            <div class="gIRASp">
+                                               
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -32,3 +32,34 @@
 .quantity-input {
   width: 7rem;
 }
+
+.smal-promotion-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.smal-promotion-list .gIRASp {
+  overflow: hidden;
+  display: flex;
+}
+
+.smal-promotion-list .gIRASp  .inner { 
+  border: 1px solid rgb(13, 92, 182);
+  border-radius: 4px;
+  height: 30px;
+  background-color: rgb(230, 238, 247);
+  margin-right: 5px;
+}
+
+.smal-promotion-list .gIRASp  .inner .content {
+  padding: 0px 18px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 100%;
+  color: rgb(13, 92, 182);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
