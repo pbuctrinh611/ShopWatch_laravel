@@ -63,7 +63,7 @@
         </li>
         
         <li class="nav-item">
-          <a href="" class="nav-link" id="link-brand">
+          <a href="{{ route('admin.product.index' )}}" class="nav-link" id="link-brand">
             <i class="nav-icon fas fa-list"></i>
             <p>
               Quản lý sản phẩm

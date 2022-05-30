@@ -1,160 +1,108 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
-use Exception;
-use App\Models\Brand;
-use App\Models\Color;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\ProductColor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Config;
-use App\Http\Requests\Product\CreateProduct;
-use App\Http\Requests\Product\UpdateProduct;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    protected $limit;
-
-    public function __construct() {
-        $this->limit = Config::get('constants.limit_page');
-    }
-    
-    public function index()
-    {
-        $products = Product::paginate($this->limit);
-        $categories = Category::all();
+    public function index() {
         $brands = Brand::all();
-        return view('admin.product.list', compact('products', 'categories', 'brands'));
-    }
-
-    public function showCreateForm()
-    {
         $categories = Category::all();
-        $brands = Brand::all();
-        $colors = Color::all();
-        return view('admin.product.add', compact('categories', 'brands', 'colors'));
+        return view('admin.product.index', compact('brands', 'categories'));
     }
 
-    public function create(CreateProduct $request)
-    {
-        $data = $request->only([
-            'name', 'price', 'qty', 'id_category', 'id_brand', 'warranty', 
-            'is_waterproof', 'glasses', 'watch_case', 'strap', 'description'
+    public function fetchProduct(Request $request) {
+        $brands = Brand::all();
+        $categories = Category::all();
+        $products = Product::with('brand', 'category')->orderBy('id', 'desc');
+        $search_product = !empty($request->search_product) ? $request->search_product : '';
+        if(!empty($search_product)) {
+            $products->where(function ($query) use ($search_product) {
+                $query->where('product.name', 'LIKE', '%' . $search_product . '%');
+            });
+        }
+        $filter_category = !empty($request->filter_category) ? $request->filter_category : '';
+        if(!empty($filter_category)) {
+            $products->where(function ($query) use ($filter_category) {
+                $query->where('product.id_category', $filter_category);
+            });
+        }
+        $filter_brand = !empty($request->filter_brand) ? $request->filter_brand : '';
+        if(!empty($filter_brand)) {
+            $products->where(function ($query) use ($filter_brand) {
+                $query->where('product.id_brand', $filter_brand);
+            });
+        }
+        $data = $products->get();
+        return response()->json([
+            'products' => $data,
+            'brands' => $brands,
+            'categories'=> $categories
         ]);
-        $colors = $request->get('color');
-        $id = $this->getNewId();
-
-        DB::beginTransaction();
-        try {
-            if ($request->hasFile('image')) {
-                $data['image'] =  $request->file('image')->store("product/$id/", 'public');
-            }
-            if ($request->hasfile('image_detail')) {
-                $path_images = [];
-                foreach ($request->file('image_detail') as $file) {
-                    $path_images[] =  $file->store("product/$id/", 'public');
-                }
-                $data['image_detail'] = json_encode($path_images, JSON_UNESCAPED_UNICODE);
-            }
-            $new_product = Product::create($data);
-            foreach ($colors as $item) {
-                if (intval($item['qty']) < 0) {
-                    throw new Exception();
-                }
-                $item['id_product'] = $new_product->id;
-                ProductColor::create($item);
-            }
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return back()->with('alert-fail', 'Thêm mới thất bại!');
-        }
-        DB::commit();
-        return redirect(route('admin.product.detail', ['id' => $new_product->id]))->with('alert-success', 'Thêm mới thành công!');
     }
 
-    public function detail($id)
-    {
-        $product = Product::findOrFail($id);
-        $categories = Category::all();
-        $brands = Brand::all();
-        $product['image_detail'] = json_decode($product->image_detail) ?? [];
-        $colors = Color::all();
-        return view('admin.product.detail', compact('product', 'categories', 'brands', 'colors'));
-    }
-
-    public function update(UpdateProduct $request, $id)
-    {
-        $data = $request->only([
-            'name', 'price', 'qty', 'id_category', 'id_brand', 'warranty', 
-            'is_waterproof', 'glasses', 'watch_case', 'strap', 'status', 'description'
-        ]);
-        $colors = $request->get('color');
-        $product = Product::findOrFail($id);
-        $product->image_detail = json_decode($product->image_detail);
-        DB::beginTransaction();
-        try {
-            if ($request->hasFile('image')) {
-                Storage::disk('public')->delete($product->image);
-                $data['image'] =  $request->file('image')->store("product/$id/", 'public');
-            }
-            if ($request->hasfile('image_detail')) {
-                Storage::disk('public')->delete($product->image_detail);
-                $path_images = [];
-                foreach ($request->file('image_detail') as $file) {
-                    $path_images[] =  $file->store("product/$id/", 'public');
-                }
-                $data['image_detail'] = json_encode($path_images, JSON_UNESCAPED_UNICODE);
-            }
-            $product->update($data);
-            
-            ProductColor::where('id_product', $product->id)->delete();
-
-            foreach ($colors as $item) {
-                if (intval($item['qty']) < 0) {
-                    throw new Exception();
-                }
-                $item['id_product'] = $product->id;
-                ProductColor::create($item);
-            }
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return back()->with('alert-fail', 'Tạo mới thất bại!');
-        }
-        DB::commit();
-        return back()->with('alert-success', 'Cập nhật thành công!');
-    }
-
-    public function search(Request $request)
-    {
-        $categories =Category::all();
-        $brands = Brand::all();
-        $columns = $request->only(['id', 'name', 'id_category', 'id_brand', 'status']);
-        $query = Product::query();
-        $strict = ['id', 'id_brand', 'id_category', 'status'];
-        foreach ($columns as $column => $value) {
-            if (is_null($value)) {
-                continue;
-            }
-            if (in_array($column, $strict)) {
-                $query = $query->where($column, $value);
-            } else {
-                $query = $query->where($column, 'like', '%' . $value . '%');
+    public function store(Request $request) {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'          =>  'required',
+                'price'         =>  'required',
+                'image'         =>  'required',
+                'warranty'      =>  'required',
+                'is_waterproof' =>  'required',
+                'glasses'       =>  'required',
+                'strap'         =>  'required',
+                'watch_case'    =>  'required',
+                'description'   =>  'required',
+            ],
+            [
+                'name.required'           =>  'Tên sản phẩm là bắt buộc',
+                'price.required'          =>  'Giá sản phẩm là bắt buộc',
+                'image.required'          =>  'Hình ảnh là bắt buộc',
+                'warranty.required'       =>  'Độ đảm bảo là bắt buộc',
+                'is_waterproof.required'  =>  'Chống nước là bắt buộc',
+                'glasses.required'        =>  'Chất liệu kính là bắt buộc',
+                'strap.required'          =>  'Chất liệu dây đeo là bắt buộc',
+                'watch_case.required'     =>  'Chất liệu vỏ là bắt buộc',
+                'description.required'    =>  'Mô tả là bắt buộc',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'error' => $validator->errors()->toArray()
+            ]);
+        }else {
+            $file = $request->file('image');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/product', $fileName);
+            $data = [
+                'name' => $request->name,
+                'price' => $request->price,
+                'image' => $request->fileName,
+                'warranty' => $request->warranty,
+                'is_waterproof' => $request->is_waterproof,
+                'glasses' => $request->glasses,
+                'strap' => $request->strap,
+                'watch_case' => $request->watch_case,
+                'description' => $request->description,
+                'id_brand' => $request->id_brand,
+                'id_category' => $request->id_category,
+                'status'      => $request->status,
+            ];
+            $product = Product::create($data);
+            if($product) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Thêm thành công"
+                ]);
             }
         }
-        $products = $query->orderBy('id', 'desc')->paginate($this->limit)->appends($columns);
-        return view('admin.product.list', compact('products', 'categories', 'brands', 'request'));
-    }
-
-    public function getNewId()
-    {
-        $databaseName = Config::get('database.connections');
-        $database_name = $databaseName['mysql']['database'];
-        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$database_name' AND TABLE_NAME = 'product'";
-        $result = DB::select($sql);
-        $id = $result[0]->AUTO_INCREMENT;
-        return is_null($id) ? 1 : $id;
     }
 }

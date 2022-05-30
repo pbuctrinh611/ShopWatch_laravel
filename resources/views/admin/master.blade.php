@@ -67,6 +67,7 @@
   {{-- Active Link --}}
   <script src="{{ asset('admin/js/active-link.js') }}"></script>
   <script src="{{ asset('admin/js/user-management.js') }}"></script>
+  <script src="{{ asset('admin/js/product-management.js') }}"></script>
   <!-- AdminLTE -->
   <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
 

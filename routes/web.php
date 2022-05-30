@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
+
 
 use App\Http\Controllers\User\UserLoginController;
 use App\Http\Controllers\User\UserHomeController;
@@ -55,6 +57,12 @@ Route::namespace('Admin')->group(function () {
                 Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
                 Route::put('/blocked/{id}', [UserController::class, 'blocked'])->name('admin.user.blocked');
                 Route::put('/active/{id}', [UserController::class, 'active'])->name('admin.user.active');
+            });
+
+            Route::get('/fetch-product', [ProductController::class, 'fetchProduct'])->name('admin.fetch_product');
+            Route::prefix('product')->group(function() {
+                Route::get('/', [ProductController::class, 'index'])->name('admin.product.index');
+                Route::post('/store', [ProductController::class, 'store'])->name('admin.product.store');
             });
         });
 
