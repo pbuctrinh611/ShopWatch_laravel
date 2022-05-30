@@ -42,36 +42,40 @@
                                     <h2>Thông tin vận chuyển</h2>
                                 </div>
                                 <div class="checkout-form">
-                                    <form action="#" class="form">
+                                    <form id="addOrderForm">
+                                        <input type="hidden" name="id_customer" class="id_customer" value="{{Auth::user()->id}}">
+                                        <input type="hidden" name="status" class="status" value="0">
                                         <div class="form-row mb--30">
                                             <div class="form__group col-12">
-                                                <label for="billing_fname" class="form__label">Họ tên<span>*</span></label>
-                                                <input type="text" name="billing_fname" id="billing_fname" class="form__input form__input--2">
+                                                <label for="name" class="form__label">Họ tên<span>*</span></label>
+                                                <input type="text" name="name" id="name" class="form__input form__input--2 name">
+                                                <span class="text text-danger error-text name_error"></span>
                                             </div>
                                         </div>
                                         <div class="form-row mb--30">
                                             <div class="form__group col-12">
-                                                <label for="billing_streetAddress" class="form__label">Địa chỉ</label>
-                                                <input type="text" name="billing_streetAddress" id="billing_streetAddress" class="form__input form__input--2">
+                                                <label for="address" class="form__label">Địa chỉ<span>*</span></label>
+                                                <input type="text" name="address" id="address" class="form__input form__input--2 address">
+                                                <span class="text text-danger error-text address_error"></span>
                                             </div>
                                         </div>
                                         <div class="form-row mb--30">
                                             <div class="form__group col-md-6 mb-sm--30">
-                                                <label for="billing_phone" class="form__label">Số điện thoại</label>
-                                                <input type="text" name="billing_phone" id="billing_phone" class="form__input form__input--2">
+                                                <label for="tel" class="form__label">Số điện thoại<span>*</span></label>
+                                                <input type="text" name="tel" id="tel" class="form__input form__input--2 tel">
+                                                <span class="text text-danger error-text tel_error"></span>
                                             </div>
                                             <div class="form__group col-md-6">
-                                                <label for="billing_email" class="form__label">Email
-                                                    <span>*</span>
+                                                <label for="email" class="form__label">Email<span>*</span>
                                                 </label>
-                                                <input type="email" name="billing_email" id="billing_email" class="form__input form__input--2">
+                                                <input type="email" name="email" id="email" class="form__input form__input--2 email">
+                                                <span class="text text-danger error-text email_error"></span>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form__group col-12">
-                                                <label for="orderNotes" class="form__label">Ghi chú</label>
-                                                <textarea class="form__input form__input--2 form__input--textarea" id="orderNotes" name="orderNotes"
-                                                placeholder="Notes about your order, e.g. special notes for delivery.">
+                                                <label for="note" class="form__label">Ghi chú</label>
+                                                <textarea class="form__input form__input--2 form__input--textarea note text-left" name="note" id="note">
                                                 </textarea>
                                             </div>
                                         </div>
@@ -102,7 +106,7 @@
                                         <form action="#" class="payment-form">
                                             <div class="payment-group">
                                                 <div class="custom-radio payment-radio">
-                                                    <input type="radio" name="payment-method" id="cash">
+                                                    <input type="radio" name="payment-method" class="payment-method" id="cash" value="1">
                                                     <label class="payment-label" for="cash">Thanh toán khi giao hàng</label>
                                                 </div>
                                                 <div class="payment-info">
@@ -111,7 +115,7 @@
                                             </div>
                                             <div class="payment-group">
                                                 <div class="custom-radio payment-radio">
-                                                    <input type="radio" value="paypal" name="payment-method" id="paypal">
+                                                    <input type="radio" class="payment-method" name="payment-method" id="paypal" value="2">
                                                     <label class="payment-label" for="paypal"> Paypal<img
                                                             src="user/img/others/AM_mc_vs_ms_ae_UK.png"
                                                             alt="payment"><a

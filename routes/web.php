@@ -130,6 +130,7 @@ Route::namespace('User')->group(function() {
             Route::get('/', [UserCheckoutController::class, 'index'])->name('user.checkout');
             Route::post('/check-promotion', [UserCheckoutController::class, 'checkPromotion'])->name('user.check_promotion');
             Route::delete('/delete-promotion', [UserCheckoutController::class, 'deletePromotion'])->name('user.delete_promotion');
+            Route::post('/add-order', [UserCheckoutController::class, 'addOrder'])->name('user.add_order');
         });
     });
 });

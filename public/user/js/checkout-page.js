@@ -170,4 +170,54 @@ jQuery(document).ready(function() {
             }
         });
     });
+
+    $(document).on('click', '.btn-order', function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var name = $('#addOrderForm').find('.name').val();
+        var address = $('#addOrderForm').find('.address').val();
+        var tel = $('#addOrderForm').find('.tel').val();
+        var email = $('#addOrderForm').find('.email').val();
+        var note = $('#addOrderForm').find('.note').val();
+        var status = $('#addOrderForm').find('.status').val();
+        var total_money = $('.order-total-ammount').text().replaceAll(',','').replace(' VND','');
+        var payment_method = $('input[name="payment-method"]:checked').val();
+        $.ajax({
+            url: '/checkout/add-order',
+            type: 'POST',
+            data: {
+                name: name,
+                address: address,
+                tel : tel,
+                email: email,
+                note : note,
+                status: status,
+                total_money : total_money,
+                payment_method: payment_method,
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                $(document).find('span.error-text').text('');
+            },
+            success: function(data) {
+                if(data.status == 400) {
+                    $.each(data.error, function(prefix, val) {
+                        $('span.'+prefix + '_error').text(val[0]);
+                    });
+                }else if(data.status == 404) {
+                    console.log(data.message);
+                }else{
+                    toastr.success("Đặt hàng thành công");
+                    jQuery('#addOrderForm').trigger("reset");
+                    $('.mini-cart__count').html(0);
+                    fetchMiniCart();
+                    fetchCheckoutPage();
+                }
+            }
+        });
+    });
 });

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Promotion;
 use App\Models\UserPromotion;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserCheckoutController extends Controller
 {
@@ -109,6 +112,75 @@ class UserCheckoutController extends Controller
                     'message' => 'Xóa mã giảm giá thành công',
                     'discount_price' => $discount_price,
                     'total' => $total
+                ]);
+            }
+        }
+    }
+
+    public function addOrder(Request $request) {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'     =>  'required',
+                'address'  =>  'required',
+                'tel'      =>  'required|regex:/(0)[0-9]{9}/|max:10',
+                'email'    =>  'required|email',
+            ],
+            [
+                'name.required'     =>  'Họ tên là bắt buộc',
+                'address.required'  =>  'Địa chỉ là bắt buộc',
+                'tel.required'      =>  'Số điện thoại là bắt buộc',
+                'tel.regex'         =>  'Số điện thoại sai định dạng',
+                'tel.max'           =>  'Số điện thoại phải từ :max ký tự',
+                'email.required'    =>  'Email là bắt buộc',
+                'email.email'       =>  'Email nhập chưa đúng định dạng',
+            ]
+        );
+        if($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'error'  => $validator->errors()->toArray()
+            ]);
+        }else {
+            $data = [
+                date_default_timezone_set('Asia/Ho_Chi_Minh'),
+                'id_customer' => Auth::id(),
+                'name' => $request->name,
+                'address' => $request->address,
+                'tel' =>  $request->tel,
+                'email' => $request->email,
+                'note' => $request->note,
+                'status' => $request->status,
+                'order_at' => now(),
+                'total_money' => $request->total_money,
+                'payment_method' => $request->payment_method
+            ];
+            $order = Order::create($data);
+           
+            if($order) {
+                $id_order = $order->id;
+                $cart = session()->get('cart');
+                if($cart) {
+                    foreach($cart as $key => $item) {
+                        $order_detail = new OrderDetail;
+                        $order_detail->id_order = $id_order;
+                        $order_detail->id_product = $item['id'];
+                        $order_detail->id_color = $item['product_id_color'];
+                        $order_detail->color = $item['product_color'];
+                        $order_detail->qty = $item['product_qty'];
+                        $order_detail->unit_cost = $item['product_price'];
+                        $order_detail->save();
+                    }
+                    session()->forget('cart');
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Đặt hàng thành công'
+                    ]);
+                }
+            }else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Đặt hàng thất bại'
                 ]);
             }
         }
