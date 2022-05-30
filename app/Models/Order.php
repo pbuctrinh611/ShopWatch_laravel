@@ -15,9 +15,9 @@ class Order extends Model
     public const CANCELED = 4;
 
     protected $fillable = [
-        'id_cus', 'id_saler', 'id_shipper', 'name', 'tel', 'id_district', 'address',
+        'id_customer', 'id_saler', 'id_shipper', 'name', 'tel', 'id_district', 'address',
         'order_at', 'confirm_at', 'receive_at', 'cancel_at', 'status',
-        'total_money', 'ship_money'
+        'total_money', 'ship_money', 'email', 'note', 'payment_method'
     ];
 
     protected $table = 'order';
