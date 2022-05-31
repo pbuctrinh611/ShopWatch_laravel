@@ -81,8 +81,7 @@ class ProductController extends Controller
         }else {
             $data = $request->all();
             if($request->hasFile('image')) {
-                $path = $request->file('image')->store('public/product');
-                dd($path);
+                $path = $request->file('image')->store('product', 'public');
                 $data['image'] = $path;
             }
             $product = Product::create($data);

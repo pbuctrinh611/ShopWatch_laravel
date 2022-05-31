@@ -21,7 +21,7 @@ Quản lý sản phẩm
                                         <select name="filter_product_category" id="filter_product_category" class="form-control">
                                             <option selected disabled>--Please select one category--</option>
                                             @foreach($categories as $key => $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -30,7 +30,7 @@ Quản lý sản phẩm
                                         <select name="filter_product_brand" id="filter_product_brand" class="form-control">
                                             <option selected disabled>--Please select one brand--</option>
                                             @foreach($brands as $key => $brand)
-                                                <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -73,7 +73,7 @@ Quản lý sản phẩm
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" id="createProductForm" name="myForm" class="form-horizontal" method="POST">
+                                        <form action="#" id="createProductForm" name="myForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
                                                 <label>Tên sản phẩm</label>
@@ -124,7 +124,7 @@ Quản lý sản phẩm
                                                 <label>Chọn thương hiệu</label>
                                                 <select id="id_brand" name="id_brand" class="form-control input-sm m-bot15">
                                                     @foreach($brands as $key => $brand)
-                                                        <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                    <option value="{{$brand->id}}">{{$brand->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -132,24 +132,25 @@ Quản lý sản phẩm
                                                 <label>Chọn danh mục</label>
                                                 <select id="id_category" name="id_category" class="form-control input-sm m-bot15">
                                                     @foreach($categories as $key => $category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <input type="hidden" name="status" id="status" value="1">
+                                            <div class="modal-footer">
+                                                <input type="submit" class="btn btn-primary" id="btn-product__save" value="Thêm">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                            </div>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <input type="submit" class="btn btn-primary" id="btn-product__save" value="Thêm">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <!-- End -->
 
-                         <!-- Open Delete Product Modal -->
-                         <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductLabel" aria-hidden="true">
+                        <!-- Open Delete Product Modal -->
+                        <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

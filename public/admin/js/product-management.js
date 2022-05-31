@@ -78,44 +78,22 @@ jQuery(document).ready(function() {
     $(document).on('click', '#btn-create__product', function(e) {
         e.preventDefault();
         $("#createProductModal").modal("show");
-        $('#btn-product__save').click(function(e) {
+        $('#createProductForm').submit(function(e) {
+            e.preventDefault();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var name = $('#createProductForm').find('#name').val();
-            var price = $('#createProductForm').find('#price').val();
-            var image = $('#createProductForm').find('#image').val();
-            console.log(image);
-            var warranty = $('#createProductForm').find('#warranty').val();
-            var is_waterproof = $('#createProductForm').find('#is_waterproof').val();
-            var glasses = $('#createProductForm').find('#glasses').val();
-            var strap = $('#createProductForm').find('#strap').val();
-            var watch_case = $('#createProductForm').find('#watch_case').val();
-            var description = $('#createProductForm').find('#description').val();
-            var id_brand = $('#createProductForm').find('#id_brand').val();
-            var id_category = $('#createProductForm').find('#id_category').val();
-            var status = $('#createProductForm').find('#status').val();
+            let formData = new FormData(this);
             var url = "product/store";
             console.log(image);
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: {
-                    name: name,
-                    price: price,
-                    image: image,
-                    warranty: warranty,
-                    is_waterproof: is_waterproof,
-                    glasses: glasses,
-                    strap: strap,
-                    watch_case: watch_case,
-                    description: description,
-                    id_brand: id_brand,
-                    id_category: id_category,
-                    status: status,
-                },
+                data: formData,
+                contentType: false,
+                processData: false,
                 dataType: 'json',
                 success: function(data) {
                     if(data.status == 400) {
