@@ -112,9 +112,11 @@ Quản lý sản phẩm
                                             </div>
                                             <div class="form-group">
                                                 <label>Hình ảnh</label>
-                                                <input type="file" name="image" id="image">
+                                                <input type="file" name="image" id="image" class="img-preview">
+                                                <img src="https://tintuckhanhhoa.com/uploads/no_image_available.jpg" alt="" id="previewImg" width="30%">
                                                 <span class="text text-danger error-text image_error"></span>
                                             </div>
+                                            <div class="img-holder"></div>
                                             <div class="form-group">
                                                 <label>Mô tả</label>
                                                 <input type="text" class="form-control" id="description" name="description" placeholder="Nhập mô tả">

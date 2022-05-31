@@ -111,6 +111,18 @@ jQuery(document).ready(function() {
         });
     });
 
+    //TODO: Preview image before add
+    $('input[name="image"]').on('change', function() {
+        var file = $('.img-preview').get(0).files[0];
+        if(file) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                $('#previewImg').attr('src', reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
     //TODO: Open delete modal
     $(document).on('click', '.btn-delete__product', function(e) {
         e.preventDefault();

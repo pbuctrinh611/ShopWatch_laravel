@@ -94,6 +94,10 @@ class ProductController extends Controller
         }
     }
 
+    public function update(Request $request){
+        
+    }
+
     public function delete(Request $request) {
         $id = $request->id;
         $product = Product::find($id);
