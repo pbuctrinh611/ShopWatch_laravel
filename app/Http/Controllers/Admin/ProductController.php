@@ -105,4 +105,42 @@ class ProductController extends Controller
             }
         }
     }
+
+    public function blocked(Request $request) {
+        $id = $request->id;
+        $product = Product::find($id);
+        if($product) {
+            $product->update([
+                'status' => 0
+            ]);
+            return response()->json([
+                'status' => 200,
+                'message' => "Khóa sản phẩm thành công"
+            ]);
+        }else {
+            return response()->json([
+                'status' => 404,
+                'error' => 'Không tìm sản phẩm'
+            ]);
+        }
+    }
+
+    public function active(Request $request) {
+        $id = $request->id;
+        $product = Product::find($id);
+        if($product) {
+            $product->update([
+                'status' => 1
+            ]);
+            return response()->json([
+                'status' => 200,
+                'message' => "Kích hoạt sản phẩm thành công"
+            ]);
+        }else {
+            return response()->json([
+                'status' => 404,
+                'error' => 'Không tìm sản phẩm'
+            ]);
+        }
+    }
 }

@@ -131,4 +131,58 @@ jQuery(document).ready(function() {
             });
         });
     });
+
+    //TODO: Blocked product
+    $(document).on('click', '.btn-blocked__product', function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var id = $(this).val();
+        var url = 'product/blocked';
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (response) {
+                if(response.status == 404){
+                    console.log(response.error);
+                 }
+                 toastr.success("Khóa sản phẩm thành công");
+                 fetchProduct();
+            }
+        });
+    });
+
+    //TODO: Active product
+    $(document).on('click', '.btn-active__product', function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var id = $(this).val();
+        var url = 'product/active';
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (response) {
+                if(response.status == 404){
+                    console.log(response.error);
+                 }
+                 toastr.success("Kích hoạt sản phẩm thành công");
+                 fetchProduct();
+            }
+        });
+    });
 });

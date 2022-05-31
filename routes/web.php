@@ -63,6 +63,8 @@ Route::namespace('Admin')->group(function () {
             Route::prefix('product')->group(function() {
                 Route::get('/', [ProductController::class, 'index'])->name('admin.product.index');
                 Route::post('/store', [ProductController::class, 'store'])->name('admin.product.store');
+                Route::put('/blocked', [ProductController::class, 'blocked'])->name('admin.product.blocked');
+                Route::put('/active', [ProductController::class, 'active'])->name('admin.product.active');
             });
         });
 
