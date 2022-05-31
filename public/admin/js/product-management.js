@@ -64,9 +64,11 @@ jQuery(document).ready(function() {
                                     '<button type="button" value="'+item.id+'" class="btn btn-success btn-blocked__product col-md-10">Hoạt động</button>'
                                 )+
                             '</td>\
-                        <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__product mr-2">Edit</button>\
-                        <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__product">Delete</button></td>\
-                </tr>');
+                            <td>\
+                                <button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__product mr-2">Edit</button>\
+                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__product">Delete</button>\
+                            </td>\
+                        </tr>');
                 });
             }
         });
@@ -84,9 +86,7 @@ jQuery(document).ready(function() {
             });
             var name = $('#createProductForm').find('#name').val();
             var price = $('#createProductForm').find('#price').val();
-         //   var image = $('#createProductForm').find('#image').val();
-            var image = $('input[name="payment-method"]').target.files[0].name;
-            console.log(image);
+            var image = $('#createProductForm').find('#image').val();
             var warranty = $('#createProductForm').find('#warranty').val();
             var is_waterproof = $('#createProductForm').find('#is_waterproof').val();
             var glasses = $('#createProductForm').find('#glasses').val();
@@ -129,6 +129,42 @@ jQuery(document).ready(function() {
                     }
                 }
             });
+        });
+    });
+
+    //TODO: Open delete modal
+    $(document).on('click', '.btn-delete__product', function(e) {
+        e.preventDefault();
+        var id = $(this).val();
+        $("#delete_product_id").val(id);
+        $('#deleteProductModal').modal('show');
+    });
+
+    //TODO: Delete product
+    $(document).on('click', '#delete_product', function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var id = $('#deleteProductModal').find('#delete_product_id').val();
+        var url = 'product/delete';
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if(response.status == 404){
+                    console.log(response.error);
+                }
+                toastr.success("Xóa sản phẩm thành công");
+                $('#deleteProductModal').modal('hide');
+                fetchProduct();
+            }
         });
     });
 

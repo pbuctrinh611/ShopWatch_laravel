@@ -62,7 +62,7 @@ Quản lý sản phẩm
                             </tbody>
                         </table>
 
-                        <!-- Open Create User Modal -->
+                        <!-- Open Create Product Modal -->
                         <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -147,6 +147,32 @@ Quản lý sản phẩm
                             </div>
                         </div>
                         <!-- End -->
+
+                         <!-- Open Delete Product Modal -->
+                         <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteProductLabel">Xóa sản phẩm</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="#" id="deleteProductForm" name="myForm" class="form-horizontal" method="DELETE">
+                                            @csrf
+                                            <input type="hidden" id="delete_product_id">
+                                            <h5 class="text text-danger">Bạn có muốn xóa sản phẩm này không?</h5>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-primary" id="delete_product" value="Xóa">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End-->
                     </div>
                 </div>
             </div>

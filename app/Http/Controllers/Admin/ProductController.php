@@ -79,9 +79,6 @@ class ProductController extends Controller
                 'error' => $validator->errors()->toArray()
             ]);
         }else {
-            $file = $request->file('image');
-            $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/product', $fileName);
             $data = [
                 'name' => $request->name,
                 'price' => $request->price,
@@ -106,6 +103,23 @@ class ProductController extends Controller
         }
     }
 
+    public function delete(Request $request) {
+        $id = $request->id;
+        $product = Product::find($id);
+        if($product) {
+            $product->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => "Xóa sản phẩm thành công"
+            ]);
+        }else {
+            return response()->json([
+                'status' => 404,
+                'error' => 'Không tìm thấy sản phẩm'
+            ]);
+        }
+    }
+
     public function blocked(Request $request) {
         $id = $request->id;
         $product = Product::find($id);
@@ -120,7 +134,7 @@ class ProductController extends Controller
         }else {
             return response()->json([
                 'status' => 404,
-                'error' => 'Không tìm sản phẩm'
+                'error' => 'Không tìm thấy sản phẩm'
             ]);
         }
     }
@@ -139,7 +153,7 @@ class ProductController extends Controller
         }else {
             return response()->json([
                 'status' => 404,
-                'error' => 'Không tìm sản phẩm'
+                'error' => 'Không tìm thấy sản phẩm'
             ]);
         }
     }
