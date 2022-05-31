@@ -87,6 +87,7 @@ jQuery(document).ready(function() {
             var name = $('#createProductForm').find('#name').val();
             var price = $('#createProductForm').find('#price').val();
             var image = $('#createProductForm').find('#image').val();
+            console.log(image);
             var warranty = $('#createProductForm').find('#warranty').val();
             var is_waterproof = $('#createProductForm').find('#is_waterproof').val();
             var glasses = $('#createProductForm').find('#glasses').val();

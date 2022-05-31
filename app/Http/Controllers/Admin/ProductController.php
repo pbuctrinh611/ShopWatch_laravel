@@ -79,20 +79,12 @@ class ProductController extends Controller
                 'error' => $validator->errors()->toArray()
             ]);
         }else {
-            $data = [
-                'name' => $request->name,
-                'price' => $request->price,
-                'image' => $request->fileName,
-                'warranty' => $request->warranty,
-                'is_waterproof' => $request->is_waterproof,
-                'glasses' => $request->glasses,
-                'strap' => $request->strap,
-                'watch_case' => $request->watch_case,
-                'description' => $request->description,
-                'id_brand' => $request->id_brand,
-                'id_category' => $request->id_category,
-                'status'      => $request->status,
-            ];
+            $data = $request->all();
+            if($request->hasFile('image')) {
+                $path = $request->file('image')->store('public/product');
+                dd($path);
+                $data['image'] = $path;
+            }
             $product = Product::create($data);
             if($product) {
                 return response()->json([
