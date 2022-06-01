@@ -94,8 +94,42 @@ class ProductController extends Controller
         }
     }
 
+    public function edit(Request $request) {
+        $id = $request->id;
+        $product = Product::where('id', $id)->with('brand', 'category')->first();
+        if ($product) {
+            return response()->json([
+                'status' => 200,
+                'product'   => $product,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message'   => 'Không tìm thấy sản phẩm',
+            ]);
+        }
+    }
+
     public function update(Request $request){
-        
+        $product_id = $request->product_id;
+        $product = Product::find($product_id);
+            if ($product) {
+                $data = $request->all();
+                if ($request->hasFile('image')) {
+                    Storage::disk('public')->delete($product->image);
+                    $data['image'] =  $request->file('image')->store('product', 'public');
+                }
+                $product->update($data);
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Cập nhật thành công.'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'error' => 'Không tìm thấy sản phẩm.'
+                ]);
+            }
     }
 
     public function delete(Request $request) {

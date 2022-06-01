@@ -123,6 +123,83 @@ jQuery(document).ready(function() {
         }
     });
 
+    //TODO: Preview image before update
+    $('#updateProductForm input[name="image"]').on('change', function() {
+        var file = $('#updateProductForm').find('.img-preview').get(0).files[0];
+        if(file) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                $('#updateProductForm').find('#previewImg').attr('src', reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    //TODO: Open edit product modal
+    $(document).on('click', '.btn-edit__product', function(e) {
+        e.preventDefault();
+        var id = $(this).val();
+        $('#updateProductModal').modal('show');
+        var url = "product/edit";
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                id: id,
+            },
+            dataType: 'json',
+            cache: false,
+            success: function (response) {
+                if(response.status == 404) {
+                    console.log(response.message);
+                }else {
+                    $('#updateProductModal').find('#update_product_id').val(id);  
+                    $('#updateProductModal').find('#name').val(response.product.name);
+                    $('#updateProductModal').find('#price').val(response.product.price);
+                    $('#updateProductModal').find('#warranty').val(response.product.warranty);
+                    $('#updateProductModal').find('#is_waterproof').val(response.product.is_waterproof);
+                    $('#updateProductModal').find('#glasses').val(response.product.glasses);
+                    $('#updateProductModal').find('#strap').val(response.product.strap);
+                    $('#updateProductModal').find('#watch_case').val(response.product.watch_case);
+                    $('#updateProductModal').find('#previewImg').attr("src", response.product.image);
+                    $('#updateProductModal').find('#description').val(response.product.description);
+                    $('#updateProductModal').find('#id_brand').val(response.product.id_brand);
+                    $('#updateProductModal').find('#id_category').val(response.product.id_category);
+                }
+            }
+        });
+    });
+
+    //TODO: Update product
+    $('#updateProductForm').submit(function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var form = this;
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(data) {
+                if(data.status == 404) {
+                   console.log('Thất bại');
+                }else {
+                    toastr.success("Cập nhật thành công");
+                    $('#updateProductForm')[0].reset();
+                    $("#updateProductModal").modal("hide");
+                    fetchProduct();
+                }
+            }
+        });
+    });
+
     //TODO: Open delete modal
     $(document).on('click', '.btn-delete__product', function(e) {
         e.preventDefault();

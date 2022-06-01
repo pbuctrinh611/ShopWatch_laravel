@@ -112,7 +112,7 @@ Quản lý sản phẩm
                                             </div>
                                             <div class="form-group">
                                                 <label>Hình ảnh</label>
-                                                <input type="file" name="image" id="image" class="img-preview">
+                                                <input type="file" name="image" id="image" class="img-preview form-control mb-2">
                                                 <img src="https://tintuckhanhhoa.com/uploads/no_image_available.jpg" alt="" id="previewImg" width="30%">
                                                 <span class="text text-danger error-text image_error"></span>
                                             </div>
@@ -146,6 +146,93 @@ Quản lý sản phẩm
                                         </form>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End -->
+
+                        <!-- Open Update Product Modal -->
+                        <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createModalLabel">Cập nhật sản phẩm</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('admin.product.update')}}" id="updateProductForm" name="myForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" id="update_product_id" name="product_id" value="">
+                                            <div class="form-group">
+                                                <label>Tên sản phẩm</label>
+                                                <input type="text" class="form-control" id="name" name="name">
+                                                <span class="text text-danger error-text name_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Giá</label>
+                                                <input type="text" class="form-control" id="price" name="price">
+                                                <span class="text text-danger error-text price_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Độ bảo đảm</label>
+                                                <input type="text" class="form-control" id="warranty" name="warranty">
+                                                <span class="text text-danger error-text warranty_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Chống nước</label>
+                                                <input type="text" class="form-control" id="is_waterproof" name="is_waterproof">
+                                                <span class="text text-danger error-text is_waterproof_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Chất liệu kính</label>
+                                                <input type="text" class="form-control" id="glasses" name="glasses">
+                                                <span class="text text-danger error-text glasses_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Chất liệu dây đeo</label>
+                                                <input type="text" class="form-control" id="strap" name="strap">
+                                                <span class="text text-danger error-text strap_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Chất liệu vỏ</label>
+                                                <input type="text" class="form-control" id="watch_case" name="watch_case">
+                                                <span class="text text-danger error-text watch_case_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Hình ảnh <button type="button" class="btn btn-danger btn-sm">Clear</button></label>
+                                                <input type="file" name="image" id="image" class="img-preview form-control">
+                                                <img src="" alt="" id="previewImg" width="30%">
+                                                <span class="text text-danger error-text image_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Mô tả</label>
+                                                <input type="text" class="form-control" id="description" name="description">
+                                                <span class="text text-danger error-text description_error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Chọn thương hiệu</label>
+                                                <select id="id_brand" name="id_brand" class="form-control input-sm m-bot15">
+                                                    @foreach($brands as $key => $brand)
+                                                    <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Chọn danh mục</label>
+                                                <select id="id_category" name="id_category" class="form-control input-sm m-bot15">
+                                                    @foreach($categories as $key => $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" class="btn btn-primary" id="btn-product__update" value="Cập nhật">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
