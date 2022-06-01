@@ -201,7 +201,7 @@ Quản lý sản phẩm
                                                 <span class="text text-danger error-text watch_case_error"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label>Hình ảnh <button type="button" class="btn btn-danger btn-sm">Clear</button></label>
+                                                <label>Hình ảnh</label>
                                                 <input type="file" name="image" id="image" class="img-preview form-control">
                                                 <img src="" alt="" id="previewImg" width="30%">
                                                 <span class="text text-danger error-text image_error"></span>

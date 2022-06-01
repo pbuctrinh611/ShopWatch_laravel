@@ -113,6 +113,40 @@ class ProductController extends Controller
     public function update(Request $request){
         $product_id = $request->product_id;
         $product = Product::find($product_id);
+        $validator = Validator::make($request->all(), 
+            [
+                'name' => 'required',
+                'price' => 'required|numeric|min:1000',
+                'warranty' => 'required',
+                'is_waterproof' => 'required',
+                'glasses' => 'required',
+                'strap' => 'required',
+                'watch_case' => 'required',
+                'image' => 'image',
+                'description' =>  'required',
+            ],
+            [
+                'name.required' => 'Tên sản phẩm là bắt buộc',
+                'price.required' => 'Giá sản phẩm là bắt buộc',
+                'price.numeric' => 'Giá sản phẩm sai định dạng',
+                'price.min'      =>  'Giá sản phẩm phải từ :min đồng trở lên',
+                'warranty.required' => 'Độ đảm bảo là bắt buộc',
+                'is_waterproof.required' => 'Độ chống nước là bắt buộc',
+                'glasses.required' => 'Chất liệu kính là bắt buộc',
+                'strap.required' => 'Chất liệu dây đeo là bắt buộc',
+                'watch_case.required' => 'Chất liệu vỏ là bắt buộc',
+                'image.image' => 'Loại file này không phù hợp',
+                'description.required' => 'Mô tả sản phẩm là bắt buộc',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'error' => $validator->errors()->toArray()
+            ]);
+        } 
+
+      
             if ($product) {
                 $data = $request->all();
                 if ($request->hasFile('image')) {

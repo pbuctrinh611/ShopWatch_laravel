@@ -187,8 +187,15 @@ jQuery(document).ready(function() {
             contentType: false,
             processData: false,
             dataType: 'json',
+            beforeSend: function () {
+                $(form).find('span.error-text').text('');
+            },
             success: function(data) {
-                if(data.status == 404) {
+                if(data.status == 400) {
+                    $.each(data.error, function(prefix, val) {
+                        $('span.'+prefix + '_error').text(val[0]);
+                    });
+                }else if(data.status == 404) {
                    console.log('Thất bại');
                 }else {
                     toastr.success("Cập nhật thành công");
