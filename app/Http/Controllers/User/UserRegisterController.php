@@ -23,14 +23,16 @@ class UserRegisterController extends Controller
         $validator = Validator::make($request->all(), 
         [
             'name'     =>  'required',
-            'tel'      =>  'required|numeric',
+            'tel'      =>  'required|regex:/(0)[0-9]{9}/|max:10|unique:users,tel',
             'email'    =>  'required|email|unique:users,email',
             'password' =>  'required|min:8'
         ], 
         [
             'name.required'     =>  'Họ tên là bắt buộc',
             'tel.required'      =>  'Số điện thoại là bắt buộc',
-            'tel.numeric'       =>  'Số điện thoại phải là số',
+            'tel.regex'         =>  'Số điện thoại sai định dạng',
+            'tel.max'           =>  'Số điện thoại phải từ :max ký tự',
+            'tel.unique'        =>  'Số điện thoại đã tồn tại',
             'email.required'    =>  'Email là bắt buộc',
             'email.email'       =>  'Email nhập chưa đúng định dạng',
             'email.unique'      =>  'Email này đã tồn tại',
