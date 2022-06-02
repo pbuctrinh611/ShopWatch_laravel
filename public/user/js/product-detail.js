@@ -45,6 +45,7 @@ jQuery(document).ready(function() {
     var optionDefault = $('#id_color > option').eq(0);
     var productQuantyDefault = optionDefault.data('qty');
     $('#product_qty').text(productQuantyDefault);
+    
     $('.product-detail-status').html('');
     if(parseInt(productQuantyDefault) == 0) {
         $('.product-detail-status').append('<h3 class="bg-danger rounded mb-0 p-2">Hết hàng</h3>');
@@ -58,6 +59,7 @@ jQuery(document).ready(function() {
         var optionSelected = $("option:selected", this);
         var productQuantySelected = optionSelected.data('qty');
         $('#product_qty').text(productQuantySelected);
+
         $('.product-detail-status').html('');
         if(parseInt(productQuantySelected) == 0) {
             $('.product-detail-status').append('<h3 class="bg-danger rounded mb-0 p-2">Hết hàng</h3>');
