@@ -51,8 +51,13 @@
                             </div>
                         </div>
                         <div class="product-details-bottom">
-                            <p class="product-details-availability"><i class="fa fa-check-circle"></i>
-                                Số lượng còn: <span id="product_qty"></span>
+                            <p class="product-details-availability">
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <i class="fa fa-check-circle mr-2"></i>Số lượng còn: <span id="product_qty" class="ml-1 mr-3"></span>
+                                    </div>
+                                    <div class="product-detail-status"></div>
+                                </div>
                             </p>
                             <div class="product-details-action-wrapper mb--20">
                                 <form action="" method="post" id="product-cart">
