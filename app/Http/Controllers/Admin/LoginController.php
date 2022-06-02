@@ -22,11 +22,12 @@ class LoginController extends Controller
     public function login(Request $request) {
         $request->validate(
             [
-                'email' => 'required',
+                'email' => 'required|email',
                 'password' => 'required',
             ],
             [
                 'email.required' => 'Vui lòng nhập email',
+                'email.email' => 'Sai định dạng email',
                 'password.required' => 'Vui lòng nhập mật khẩu',
             ]
         );
