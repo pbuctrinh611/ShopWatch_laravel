@@ -61,7 +61,8 @@ Chi tiết sản phẩm
                             <p class="product-details-availability">
                                 <div class="d-flex align-items-center">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fa fa-check-circle mr-2"></i>Số lượng còn: <span id="product_qty" class="ml-1 mr-3"></span>
+                                        <i class="fa fa-check-circle mr-2"></i>Số lượng còn: <span id="product_qty" name="product_qty_stock"
+                                         class="cart_product_qty_stock_{{$product->id}} ml-1 mr-3"></span>
                                     </div>
                                     <div class="product-detail-status"></div>
                                 </div>
@@ -76,6 +77,7 @@ Chi tiết sản phẩm
                                         <button type="button" class="btn btn-medium btn-style-2 add-to-cart" name="add-to-cart" data-id="{{$product->id}}">Chọn mua</button>
                                     </div>
                                 </div>
+
                                 <p class="product-details-tags">Tags:
                                     @foreach($categories as $item_category)
                                         @if($item_category->id == $product->id_category)

@@ -153,7 +153,7 @@ jQuery(document).ready(function () {
         var cart_product_color = $('#addCartForm').find('.cart_product_color:selected').text();
         var cart_product_qty = $('#addCartForm').find('.cart_product_qty_' + id).val();
         var cart_product_qty_stock = parseInt($('#addCartForm').find('.cart_product_qty_stock_' + id).text());
-        //console.log($.isNumeric(cart_product_qty_stock))
+        console.log((cart_product_qty_stock));
         console.log(cart_product_id_color);
        
         var _token = $('input[name="_token"]').val();
