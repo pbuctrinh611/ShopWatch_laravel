@@ -18,18 +18,19 @@ class UserLoginController extends Controller
     public function login(Request $request) {
         $request->validate(
             [
-                'email' => 'required',
+                'email' => 'required|email',
                 'password' => 'required',
             ],
             [
                 'email.required' => 'Vui lòng nhập email',
+                'email.email' => 'Nhập sai định dạng email',
                 'password.required' => 'Vui lòng nhập mật khẩu',
             ]
         );
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password])) {
             return redirect()->route('user.index')->with('alert-success', 'Đăng nhập thành công!');;
         }
-        return back()->with('alert-fail', 'Đăng nhập thất bại!');
+        return redirect()->back()->with('alert-fail', 'Đăng nhập thất bại!');
     }
 
     public function logout() {
