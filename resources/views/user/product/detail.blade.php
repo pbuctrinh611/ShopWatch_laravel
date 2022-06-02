@@ -56,21 +56,6 @@ Chi tiết sản phẩm
                                     </select>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                            <div class="product-details-bottom">
-                                <p class="product-details-availability"><i class="fa fa-check-circle"></i>
-                                    Số lượng còn: <span id="product_qty_stock" name="product_qty_stock" class="cart_product_qty_stock_{{$product->id}}"></span>
-                                </p>
-                                <div class="product-details-action-wrapper mb--20">
-=======
-                            <div class="mt-3">
-                                <label>Màu sắc</label>
-                                <select name="id_color" id="id_color" class="product-color" form="product-cart">
-                                @foreach ($product->colors as $item)
-                                    <option value="{{$item->id_color}}" data-qty="{{ $item->qty }}">{{$item->color->name}}</option>
-                                @endforeach
-                                </select>
-                            </div>
                         </div>
                         <div class="product-details-bottom">
                             <p class="product-details-availability">
@@ -84,7 +69,6 @@ Chi tiết sản phẩm
                             <div class="product-details-action-wrapper mb--20">
                                 <form action="" method="post" id="product-cart">
                                     @csrf
->>>>>>> product-detail
                                     <div class="product-details-action-top d-flex align-items-center mb--20">
                                         <div class="quantity" style="width: 20rem"><span>Số lượng đặt:</span>
                                             <input type="number" class="quantity-input cart_product_qty_{{$product->id}}" name="qty" id="pro_qty" value="1" min="1" max="100">
@@ -92,7 +76,6 @@ Chi tiết sản phẩm
                                         <button type="button" class="btn btn-medium btn-style-2 add-to-cart" name="add-to-cart" data-id="{{$product->id}}">Chọn mua</button>
                                     </div>
                                 </div>
-
                                 <p class="product-details-tags">Tags:
                                     @foreach($categories as $item_category)
                                         @if($item_category->id == $product->id_category)
