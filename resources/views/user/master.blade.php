@@ -51,6 +51,8 @@
 <script src="{{ asset('user/js/blog-page.js') }}"></script>
 <script src="{{ asset('user/js/user-register.js') }}"></script>
 <script src="{{ asset('user/js/user-information.js') }}"></script>
+<script src="{{ asset('user/js/order-history.js') }}"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
 
 

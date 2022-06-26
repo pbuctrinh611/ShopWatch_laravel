@@ -18,6 +18,8 @@ use App\Http\Controllers\User\UserProductController;
 use App\Http\Controllers\User\UserBlogController;
 use App\Http\Controllers\User\UserCartController;
 use App\Http\Controllers\User\UserCheckoutController;
+use App\Http\Controllers\User\UserOrderController;
+
 
 
 use App\Http\Controllers\API\Admin\LoginController as AdminLoginController;
@@ -145,6 +147,9 @@ Route::namespace('User')->group(function() {
             Route::delete('/delete-promotion', [UserCheckoutController::class, 'deletePromotion'])->name('user.delete_promotion');
             Route::post('/add-order', [UserCheckoutController::class, 'addOrder'])->name('user.add_order');
         });
+
+        Route::get('fetch-order-history__page', [UserOrderController::class, 'fetchOrderHistoryPage'])->name('user.order.order-history__page');
+        Route::get('/order-history', [UserOrderController::class, 'index'])->name('user.order_history');
     });
 });
 

@@ -77,6 +77,7 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{route('user.show_password')}}">Đổi mật khẩu</a>
                                     <a class="dropdown-item" href="{{route('user.show_profile')}}">Cập nhật thông tin</a>
+                                    <a class="dropdown-item" href="{{route('user.order_history')}}">Xem lịch sử đặt hàng</a>
                                     <a class="dropdown-item" href="{{route('user.logout')}}">Đăng xuất</a>
                                 </div>
                             </div>
