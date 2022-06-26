@@ -8,10 +8,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="page-title">Cart</h1>
+                    <h1 class="page-title">Giỏ hàng</h1>
                     <ul class="breadcrumb justify-content-center">
                         <li><a href="index.html">Home</a></li>
-                        <li class="current"><a href="cart.html">Cart</a></li>
+                        <li class="current"><a href="cart.html">Giỏ hàng</a></li>
                     </ul>
                 </div>
             </div>

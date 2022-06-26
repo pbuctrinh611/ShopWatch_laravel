@@ -87,8 +87,10 @@ jQuery(document).ready(function () {
                                     <strong>'+(formatCurrency(item['product_price'] * item['product_qty'])) +'</strong>\
                                 </td>\
                                 <td width="220px">\
-                                    <button type="button" class="btn btn-primary update-from-cart mr-2" data-id="'+item['id']+'">Edit</button>\
-                                    <button type="button" class="btn btn-danger remove-from-cart" data-id="'+item['id']+'">Remove</button>\
+                                    <div class="d-flex">\
+                                        <button type="button" class="btn btn-primary update-from-cart mr-2" data-id="'+item['id']+'">Cập nhật</button>\
+                                        <button type="button" class="btn btn-danger remove-from-cart" data-id="'+item['id']+'">Xóa</button>\
+                                    </div>\
                                 </td>\
                     </tr>');
                 });
