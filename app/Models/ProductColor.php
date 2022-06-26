@@ -13,11 +13,11 @@ class ProductColor extends Model
         'id_color', 'id_product', 'price_plus', 'qty'
     ];
 
-    protected $primaryKey = ['id_color', 'id_product'];
+    // protected $primaryKey = ['id_color', 'id_product'];
 
     protected $table = 'product_colors';
     
-    public $incrementing = false;
+    // public $incrementing = false;
 
     public function color()
     {
