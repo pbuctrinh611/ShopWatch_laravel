@@ -22,7 +22,7 @@ class UserProductController extends Controller
         $is_homepage = !empty($request->is_homepage) ? $request->is_homepage : '';
         $products = Product::with('category', 'brand', 'color')->orderBy('id', 'desc');
         if($is_homepage == 1) {
-            $products = $products->take(4);
+            $products = $products->take(8);
         }
         $searchProduct = !empty($request->searchProduct) ? $request->searchProduct : '';
         if(!empty($searchProduct)) {

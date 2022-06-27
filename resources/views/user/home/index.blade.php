@@ -84,7 +84,7 @@ Trang chủ
                 </ul>
                 <div class="tab-content product-tab__content" id="product-tabContent">
                     <div class="tab-pane fade show active" id="nav-featured" role="tabpanel">
-                        <div class="product-carousel js-product-carousel d-flex">
+                        <div class="product-carousel js-product-carousel d-flex flex-wrap">
                            
                         </div>
                     </div>
