@@ -61,8 +61,8 @@ jQuery(document).ready(function() {
                                 )+
                             '</td>\
                             <td>'+ defaultRole+'</td>\
-                            <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__user mr-2">Edit</button>\
-                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__user">Delete</button>\
+                            <td><button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__user mr-2">Sửa</button>\
+                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__user">Xóa</button>\
                             </td>\
                         </tr>');
                 });

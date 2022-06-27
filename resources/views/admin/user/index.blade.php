@@ -11,14 +11,14 @@ Quản lý người dùng
                     <div class="card-header">
                         <div class="d-flex  align-items-center justify-content-between">
                             <span class="card-title mr-3">Danh sách</span>
-                            <button class="btn btn-success" id="btn-create__user">Add</button>
+                            <button class="btn btn-success" id="btn-create__user">Thêm</button>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-4">
                             <form method="GET" class="form-horizontal" id="formFilterUserByRole">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="text text-primary mb-0 mr-2">Role</h5>
+                                    <h5 class="text text-primary mb-0 mr-2">Quyền</h5>
                                     <select name="filter_user_role" id="filter_user_role" class="form-control">
-                                        <option selected disabled>--Please select one role--</option>
+                                        <option selected disabled>--Chọn một quyền--</option>
                                         @foreach($roles as $key => $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
@@ -27,9 +27,9 @@ Quản lý người dùng
                             </form>
 
                             <form method="GET" class="form-horizontal" id="formUserSearch" onsubmit="return false;">
-                                <div class="d-flex">
-                                    <input type="text" id="txt_user" name="txt_user" class="txt_user form-control" placeholder="Enter name or email..." />
-                                    <button class="btn btn-info ml-2" id="search_user" type="button">Search</button>
+                                <div class="d-flex align-items-center col-md-8">
+                                    <input type="text" id="txt_user" name="txt_user" class="txt_user form-control col-md-12" placeholder="Nhập tên hoặc email..." />
+                                    <button class="btn btn-info ml-2 col-md-6" id="search_user" type="button">Tìm kiếm</button>
                                 </div>
                             </form>
                         </div>
