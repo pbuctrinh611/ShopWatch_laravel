@@ -65,8 +65,8 @@ jQuery(document).ready(function() {
                                 )+
                             '</td>\
                             <td>\
-                                <button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__product mr-2">Edit</button>\
-                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__product">Delete</button>\
+                                <button type="button" value="'+item.id+'" class="btn btn-primary btn-edit__product mr-2">Sửa</button>\
+                                <button type="button" value="'+item.id+'" class="btn btn-danger btn-delete__product">Xóa</button>\
                             </td>\
                         </tr>');
                 });

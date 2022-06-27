@@ -10,25 +10,25 @@ Quản lý sản phẩm
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex  align-items-center justify-content-between">
-                            <span class="card-title mr-3">Danh mục</span>
-                            <button class="btn btn-success" id="btn-create__product">Add</button>
+                            <span class="card-title mr-3">Danh sách</span>
+                            <button class="btn btn-success" id="btn-create__product">Thêm</button>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-4">
                             <form method="GET" class="form-horizontal" id="">
                                 <div class="d-flex align-items-center">
-                                    <div class="d-flex align-items-center mr-2">
-                                        <h5 class="text text-primary mb-0 mr-2">Category</h5>
+                                    <div class="d-flex flex-column mr-2">
+                                        <h5 class="text text-primary mb-0 mr-2 mb-2">Danh mục</h5>
                                         <select name="filter_product_category" id="filter_product_category" class="form-control">
-                                            <option selected disabled>--Please select one category--</option>
+                                            <option selected disabled>--Chọn danh mục--</option>
                                             @foreach($categories as $key => $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <h5 class="text text-primary mb-0 mr-2">Brand</h5>
+                                    <div class="d-flex flex-column">
+                                        <h5 class="text text-primary mb-2 mr-2">Thương hiệu</h5>
                                         <select name="filter_product_brand" id="filter_product_brand" class="form-control">
-                                            <option selected disabled>--Please select one brand--</option>
+                                            <option selected disabled>--Chọn thương hiệu--</option>
                                             @foreach($brands as $key => $brand)
                                             <option value="{{$brand->id}}">{{$brand->name}}</option>
                                             @endforeach
@@ -37,9 +37,9 @@ Quản lý sản phẩm
                                 </div>
                             </form>
                             <form method="GET" class="form-horizontal" id="formProductSearch" onsubmit="return false;">
-                                <div class="d-flex">
-                                    <input type="text" id="txt_product" name="txt_product" class="txt_product form-control" placeholder="Enter product name..." />
-                                    <button class="btn btn-info ml-2" id="btn-product__search" type="button">Search</button>
+                                <div class="d-flex col-md-8 align-items-center">
+                                    <input type="text" id="txt_product" name="txt_product" class="txt_product form-control col-md-12" placeholder="Nhập tên sản phẩm..." />
+                                    <button class="btn btn-info ml-2 col-md-6" id="btn-product__search" type="button">Tìm kiếm</button>
                                 </div>
                             </form>
                         </div>
