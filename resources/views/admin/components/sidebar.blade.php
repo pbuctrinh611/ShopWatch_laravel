@@ -26,7 +26,7 @@
              with font-awesome or any other icon font library -->
         {{-- Dashboard --}}
         <li class="nav-item">
-          <a href="" class="nav-link" id="link-home">
+          <a href="{{route('admin.home')}}" class="nav-link" id="link-home">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
