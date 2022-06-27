@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->where('id_role', 5)
             ->groupBy(DB::raw("Month(created_at)"))
             ->pluck('count');
-        $months = Order::select(DB::raw("Month(created_at) as month"))
+        $months = User::select(DB::raw("Month(created_at) as month"))
         ->whereYear('created_at',date('Y'))
         ->groupBy(DB::raw("Month(created_at)"))
         ->pluck("month");
