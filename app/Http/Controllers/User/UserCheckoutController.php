@@ -62,6 +62,9 @@ class UserCheckoutController extends Controller
                         }
                         $discount_price = ($total/100)*$check->discount;
                         $total = $total - $discount_price;
+                        $promotion_input = Promotion::find($check->id);
+                        $qty = $promotion_input->qty;
+                        $promotion_input->update(['qty' => $qty - 1]);
                         session()->put('cart', $cart);
                         return response()->json([
                             'status' => 200,
