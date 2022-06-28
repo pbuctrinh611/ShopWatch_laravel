@@ -118,6 +118,10 @@ jQuery(document).ready(function() {
             success: function (response) {
                 if(response.status === 404) {
                     toastr.error("Không tồn tại mã giảm giá");
+                }else if(response.status == 205) {
+                    toastr.error("Mã này đã được sử dụng hêt");
+                }else if(response.status == 206) {
+                    toastr.error("Mã này đã hết hạn sử dụng");
                 }else if(response.status == 400) {
                     toastr.error("Bạn đã sử dụng mã này rồi");
                 }else if(response.status == 204) {

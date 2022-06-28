@@ -44,6 +44,18 @@ class UserCheckoutController extends Controller
         if ($code) {
             $check = Promotion::with('user_promotion')->where('code', $code)->first();
             if ($check) {
+                if($check->qty == 0) {
+                    return response()->json([
+                        'status' => 205,
+                        'message' => 'Mã này đã được dùng hết'
+                    ]);
+                }
+                if($check->expiry < date('Y-m-d')) {
+                    return response()->json([
+                        'status' => 206,
+                        'message' => 'Mã này đã hết hạn sử dụng'
+                    ]);
+                }
                 $id_user = Auth::user()->id;
                 $check_user = UserPromotion::where('id_user', $id_user)
                               ->where('id_promotion', $check->id)
